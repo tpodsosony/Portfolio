@@ -30,3 +30,18 @@ a:hover {
 .no-mt {
   margin-top: 0;
 }
+
+main {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 2rem 0;
+}
+
+.glow-icon {
+  color: #8c5cf5;
+  filter: drop-shadow(0 0 4px #8c5cf5);
+}

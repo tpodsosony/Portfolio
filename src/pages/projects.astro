@@ -1,0 +1,110 @@
+---
+import { getCollection } from "astro:content";
+import Card from "../components/Card.astro";
+import Icon from "../components/Icon.astro";
+import Layout from "../layouts/Layout.astro";
+
+const projects = await getCollection('projects');
+---
+<Layout
+  title="Projects"
+  description="Projects stuff"
+>
+  <div class="layout-grid-left" slot="left">
+    <Card class="flex-col-card">
+      <h2 class="no-mt">???</h2>
+    </Card>
+  </div>
+  <div class="layout-grid-right" slot="right">
+		<Card>
+			<div class="header-container">
+				<Icon name="folder-git" width={24} height={24} class='glow-icon' />
+				<h2>Latest Projects</h2>
+			</div>
+			<div class="content-container">
+				{projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).map((post) => (
+					<a href={`/projects/${post.id}`} class="post-container">
+						<div class="post-header">
+							<h3>{post.data.title}</h3>
+							<span class="post-date">{post.data.date.toLocaleDateString()}</span>
+						</div>
+						<span>{post.data.description}</span>
+					</a>
+				))}
+			</div>
+		</Card>
+  </div>
+</Layout>
+<style>
+  .header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header-container * {
+    margin: 0;
+  }
+
+  .post-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1rem;
+		border: 1px solid #353535;
+		color: #ffffff;
+		text-decoration: none;
+		transition: background-color .15s ease, border .15s ease;
+	}
+
+	.post-container:hover, .post-container:focus-visible {
+		background-color: rgba(140, 92, 245, .125);
+		border: 1px solid #8c5cf5;
+	}
+
+	.post-container:focus-visible {
+		outline: none;
+	}
+
+	.post-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.post-header h3 {
+		margin: 0;
+	}
+
+	.post-date {
+		color: #c7c7c7;
+	}
+
+  .tags-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+  }
+
+  .blog-tag {
+    padding: .25rem .5rem;
+    background: #252525;
+    color: white;
+    text-decoration: none;
+  }
+
+  .blog-tag:hover, .blog-tag:focus-visible {
+    background: #353535;
+  }
+
+  .blog-tag.active {
+    background: #8c5cf5;
+  }
+</style>

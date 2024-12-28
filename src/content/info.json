@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "icon": "cake",
+    "text": "18 years old"
+  },
+  {
+    "id": 2,
+    "icon": "earth",
+    "text": "Lives in Germany"
+  },
+  {
+    "id": 3,
+    "icon": "brain-circuit",
+    "text": "5,5 years of experience"
+  }
+]

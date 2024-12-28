@@ -1,4 +1,5 @@
 ---
+import ImageGlow from "../../components/ImageGlow.astro";
 import Card from "../../components/Card.astro";
 import Layout from "../../layouts/Layout.astro";
 
@@ -34,13 +35,12 @@ interface Props {
 const { post } = Astro.props;
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection('posts');
+  const posts = await getCollection('posts', (post) => post.data.draft !== true);
+
   return posts.map((post) => ({ params: { post: post.id }, props: { post } }));
 }) satisfies GetStaticPaths;
 
 const { Content, headings } = await render(post);
-
-console.log(`${timeToRead(post)} minutes`);
 ---
 
 <Layout
@@ -64,20 +64,30 @@ console.log(`${timeToRead(post)} minutes`);
   </div>
   <article slot="right">
     <Card>
-      <div class="image-placeholder">
-        Image Placeholder (just take the thing from StudioCMS for this)
+      <div class="article-header" id="_top">
+        <ImageGlow class="article-image" src={post.data.image} alt={post.data.title} />
+        <div class="header">
+          <div>
+            <h1 class="no-mt post-header">{post.data.title}</h1>
+          </div>
+          <div class="article-info">
+            <span>{post.data.createdAt.toLocaleDateString()}</span>
+            <span>/</span>
+            <span>{timeToRead(post)} minutes to read</span>
+            <span>/</span>
+            <span>Tags: {post.data.tags.map((tag) => tag.id).join(", ")}</span>
+          </div>
+        </div>
       </div>
-      <h1 id="_top" class="no-mt post-header">{post.data.title}</h1>
-      <span>{post.data.createdAt.toLocaleDateString()}</span>
-      <span>{`${timeToRead(post)} minutes`}</span>
-      <hr />
       <Content />
+      <hr class="end-of-blog" />
+      <a href="/blog" class="block-link">← Back to blog</a>
     </Card>
   </article>
 </Layout>
 <script>
   const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-li a');
-  const headings = document.querySelectorAll<HTMLElement>('article h1, article h2, article h3, article h4');
+  const headings = document.querySelectorAll<HTMLElement>('#_top, article h1, article h2, article h3, article h4');
   const tocMap = new Map<Element, HTMLElement>();
 
   // Map TOC links to their corresponding headings
@@ -127,6 +137,7 @@ console.log(`${timeToRead(post)} minutes`);
   article h3,
   article h4 {
     scroll-margin: 4rem;
+    margin-top: 2rem;
   }
 
   article {
@@ -141,7 +152,11 @@ console.log(`${timeToRead(post)} minutes`);
     margin-bottom: 1rem;
   }
 
-  ol {
+  p img {
+    max-width: 100%;
+  }
+
+  .toc-card ol {
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -151,27 +166,15 @@ console.log(`${timeToRead(post)} minutes`);
     position: relative;
   }
 
-  .reading-indicator {
-    width: 8px;
-    height: 8px;
-    min-width: 8px;
-    border-radius: 999px;
-    background-color: #8c5cf5;
-    filter: drop-shadow(0 0 4px #8c5cf5);
-    opacity: 0;
-    transition: all .15s ease;
-  }
-
-  .reading-indicator.active {
-    opacity: 1;
-  }
-
-  ol li a {
+  .toc-card ol li a {
     color: #c7c7c7;
     font-size: .925rem;
+    padding: .25rem .5rem;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 
-  ol li a:hover {
+  .toc-card ol li a:hover {
     color: white;
     text-decoration: none;
   }
@@ -181,17 +184,8 @@ console.log(`${timeToRead(post)} minutes`);
   }
 
   ol li a.active {
-    color: #8c5cf5;
-  }
-
-  .image-placeholder {
-    aspect-ratio: 16 / 9;
-    background-color: #353535;
-    border-radius: .5rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    color: white;
+    background: #8c5cf5;
   }
 
   .left {
@@ -202,5 +196,82 @@ console.log(`${timeToRead(post)} minutes`);
   .toc-card {
     position: sticky;
     top: 2rem;
+  }
+
+  .article-header {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    scroll-margin-top: 2rem;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1rem;
+    max-width: calc(100% - 3rem);
+    z-index: 2;
+  }
+
+  .post-header {
+    margin-bottom: 0;
+    font-size: 2em;
+    background: #ffffff;
+    padding: .25rem .675rem;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    position: relative;
+    line-height: 1.2;
+    display: inline;
+    color: #000000;
+  }
+
+  .article-info {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    font-family: 'Ghost Mono', monospace;
+    background: #ffffff;
+    color: #000000;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0 .75rem;
+    width: fit-content;
+  }
+
+  code:not(.astro-code code) {
+    background-color: #353535;
+    padding: .125rem .25rem;
+    font-size: .925rem;
+  }
+
+  .article-image {
+    width: 100%;
+    height: auto;
+    z-index: 1;
+  }
+
+  .end-of-blog {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 1px;
+    background-color: #353535;
+    border: none;
+  }
+
+  .block-link {
+    color: white;
+    padding: .25rem .5rem;
+  }
+
+  .block-link:hover, .block-link:focus-visible {
+    color: white;
+    background-color: #8c5cf5;
+    text-decoration: none;
+    outline: none;
   }
 </style>

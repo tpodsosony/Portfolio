@@ -270,7 +270,6 @@ async function initializeBackground() {
   const background = new PageBackground(canvas, overlayCanvas);
 
   window.addEventListener('resize', () => {
-    console.log("hehre");
     background.resizeBackground();
   });
 }

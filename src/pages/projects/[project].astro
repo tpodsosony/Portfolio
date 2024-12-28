@@ -1,0 +1,144 @@
+---
+import Card from "../../components/Card.astro";
+import Layout from "../../layouts/Layout.astro";
+
+import type { GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { getCollection } from "astro:content";
+import ImageGlow from "../../components/ImageGlow.astro";
+import Icon from "../../components/Icon.astro";
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+
+export const getStaticPaths = (async () => {
+  const projects = await getCollection('projects');
+
+  return projects.map((project) => ({ params: { project: project.id }, props: { project } }));
+}) satisfies GetStaticPaths;
+
+const { Content } = await render(project);
+---
+<Layout
+  title={project.data.title}
+  description={project.data.description}
+>
+  <div class="left" slot="left">
+    <Card class="toc-card">
+      <h2 class="no-mt">Info</h2>
+      <ul class="overview-list">
+        {project.data.info.map((info) => {
+          const Tag = info.link ? 'a' : 'div';
+          return (
+            <li>
+              <Tag href={info.link} class='project-info-item'>
+                <Icon name={info.icon} width={24} height={24} class='glow-icon' />
+                <span>{info.text}</span>
+              </Tag>
+            </li>
+          )
+        })}
+      </ul>
+    </Card>
+  </div>
+  <article slot="right">
+    <Card>
+      <div class="article-header" id="_top">
+        {project.data.image && <ImageGlow class="article-image" src={project.data.image} alt={project.data.title} />}
+        <div class="header">
+          <div>
+            <h1 class="no-mt post-header">{project.data.title}</h1>
+          </div>
+          <div class="article-info">
+            <span>{project.data.date.toLocaleDateString()}</span>
+          </div>
+        </div>
+      </div>
+      <Content />
+      <hr class="end-of-project" />
+      <a href="/blog" class="block-link">← Back to projects</a>
+    </Card>
+  </article>
+</Layout>
+<style>
+  .article-header {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    scroll-margin-top: 2rem;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1rem;
+    max-width: calc(100% - 3rem);
+    z-index: 2;
+  }
+
+  .post-header {
+    margin-bottom: 0;
+    font-size: 2em;
+    background: #ffffff;
+    padding: .25rem .675rem;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    position: relative;
+    line-height: 1.2;
+    display: inline;
+    color: #000000;
+  }
+
+  .article-info {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    font-family: 'Ghost Mono', monospace;
+    background: #ffffff;
+    color: #000000;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0 .75rem;
+    width: fit-content;
+  }
+
+  .article-image {
+    width: 100%;
+    height: auto;
+    z-index: 1;
+  }
+
+  .project-info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .end-of-project {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 1px;
+    background-color: #353535;
+    border: none;
+  }
+
+  .block-link {
+    color: white;
+    padding: .25rem .5rem;
+  }
+
+  .block-link:hover, .block-link:focus-visible {
+    color: white;
+    background-color: #8c5cf5;
+    text-decoration: none;
+    outline: none;
+  }
+</style>

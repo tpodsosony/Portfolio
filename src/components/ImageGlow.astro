@@ -13,10 +13,11 @@ const height = props.height;
 <div class="glow-image">
   <Image {...props} />
   <Image
-    width={width ? ((typeof width === 'number' ? width : Number.parseInt(width)) / 4) : 16} 
-    height={height ? ((typeof height === 'number' ? height : Number.parseInt(height)) / 4) : 16}
+    width={width ? ((typeof width === 'number' ? width : Number.parseInt(width)) / 4) : undefined} 
+    height={height ? ((typeof height === 'number' ? height : Number.parseInt(height)) / 4) : undefined}
     {...props}
     class='glow'
+    class:list={[props.class]}
     role='presentation'
   />
 </div>
@@ -28,7 +29,6 @@ const height = props.height;
   .glow-image img {
     position: relative;
     z-index: 1;
-    border-radius: .5rem;
   }
 
   .glow {

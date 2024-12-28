@@ -6,11 +6,18 @@ import Layout from '../layouts/Layout.astro';
 import ImageGlow from '../components/ImageGlow.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { render } from 'astro:content';
 
-const [posts, projects] = await Promise.all([
-	getCollection('posts'),
-	getCollection('projects')
+const [posts, projects, about, workExperience] = await Promise.all([
+	getCollection('posts', (post) => post.data.draft !== true),
+	getCollection('projects'),
+	getEntry('other', 'about'),
+	getCollection('workExperience')
 ]);
+
+// biome-ignore lint/style/noNonNullAssertion: Should always be defined.
+const { Content: About } = await render(about!);
 ---
 
 <Layout
@@ -70,13 +77,7 @@ const [posts, projects] = await Promise.all([
 				<h2>About me</h2>
 			</div>
 			<div class="prose">
-				<p>
-					Lorem ipsum dolor sit amet. Sit voluptatibus galisum quo nisi necessitatibus et autem vitae et iusto excepturi ab dolor fugiat et porro neque. 
-					Et magnam maxime id corrupti autem eum ducimus nisi est laudantium perspiciatis et reprehenderit neque. Est quos rerum sed consequuntur molestiae 
-					aut galisum nisi ut enim autem non voluptatem facere.
-				</p>
-	
-				<p>Ut magnam esse 33 corporis ipsum quo voluptas illum et veritatis veritatis. Sed inventore illo et accusantium magni 33 odio cumque!</p>
+				<About />
 			</div>
 		</Card>
 		<Card>
@@ -85,7 +86,7 @@ const [posts, projects] = await Promise.all([
 				<h2>Latest Posts</h2>
 			</div>
 			<div class="content-container">
-				{posts.map((post) => (
+				{posts.sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime()).slice(0, 2).map((post) => (
 					<a href={`/blog/${post.id}`} class="post-container">
 						<div class="post-header">
 							<h3>{post.data.title}</h3>
@@ -96,6 +97,38 @@ const [posts, projects] = await Promise.all([
 				))}
 			</div>
 		</Card>
+		<Card>
+			<div class="header-container">
+				<Icon name="folder-git" width={24} height={24} class='glow-icon' />
+				<h2>Latest Projects</h2>
+			</div>
+			<div class="content-container">
+				{projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2).map((project) => (
+					<a href={`/projects/${project.id}`} class="post-container">
+						<div class="post-header">
+							<h3>{project.data.title}</h3>
+							<span class="post-date">{project.data.date.toLocaleDateString()}</span>
+						</div>
+						<span>{project.data.description}</span>
+					</a>
+				))}
+			</div>
+		</Card>
+		<Card>
+			<div class="header-container">
+				<Icon name="briefcase-business" width={24} height={24} class='glow-icon' />
+				<h2>Work Experience</h2>
+			</div>
+			<div class="work-experience-container">
+				{workExperience.reverse().map((entry) => (
+					<div class="work-experience-entry">
+						<span class="work-experience-duration">{entry.data.duration}</span>
+						<h3 class="work-experience-company">{entry.data.company}</h3>
+						<span class="work-experience-role">{entry.data.title}</span>
+						<p class="work-experience-desc">{entry.data.description}</p>
+					</div>
+				))}
+			</div>
 	</div>
 </Layout>
 
@@ -110,11 +143,6 @@ const [posts, projects] = await Promise.all([
 	.flex-col-card {
 		display: flex;
 		flex-direction: column;
-	}
-
-	.glow-icon {
-		color: #8c5cf5;
-		filter: drop-shadow(0 0 4px #8c5cf5);
 	}
 
 	.status-text {
@@ -185,7 +213,6 @@ const [posts, projects] = await Promise.all([
 		flex-direction: column;
 		gap: 1rem;
 		padding: 1rem;
-		border-radius: .5rem;
 		border: 1px solid #353535;
 		color: #ffffff;
 		text-decoration: none;
@@ -211,7 +238,31 @@ const [posts, projects] = await Promise.all([
 		margin: 0;
 	}
 
-	.post-date {
+	.post-date, .work-experience-duration {
 		color: #c7c7c7;
+	}
+
+	.work-experience-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.work-experience-entry:not(:last-of-type) {
+		border-bottom: 1px solid #353535;
+		padding-bottom: 1rem;
+	}
+
+	.work-experience-duration {
+		font-size: .925rem;
+	}
+
+	.work-experience-company {
+		margin-top: .25rem;
+		margin-bottom: .5rem;
+	}
+
+	.work-experience-role {
+		margin-bottom: .75rem;
 	}
 </style>
