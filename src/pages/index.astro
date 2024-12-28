@@ -1,11 +1,217 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import ProfilePicture from '../assets/pfp.jpg';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Card from '../components/Card.astro';
+import Layout from '../layouts/Layout.astro';
+import ImageGlow from '../components/ImageGlow.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+
+const [posts, projects] = await Promise.all([
+	getCollection('posts'),
+	getCollection('projects')
+]);
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title='Louis Escher'
+	description='Welcome to my corner of the internet.'
+	image={ProfilePicture}
+>
+	<div class="layout-grid-left" slot="left">
+		<Card class="flex-col-card">
+			<ImageGlow width={80} height={80} src={ProfilePicture} alt="Louis looking out of a window" loading='eager' />
+			<h2>Louis Escher</h2>
+			<ul class="overview-list">
+				<li>
+					<Icon name="cake" width={24} height={24} class='glow-icon' />
+					<span>18 years old</span>
+				</li>
+				<li>
+					<Icon name="earth" width={24} height={24} class='glow-icon' />
+					<span>Germany</span>
+				</li>
+				<li>
+					<Icon name="brain-circuit" width={24} height={24} class='glow-icon' />
+					<span>5,5 years of experience</span>
+				</li>
+			</ul>
+		</Card>
+		<Card>
+			<h3 class="no-mt">Socials</h3>
+			<ul class="overview-list">
+				<li>
+					<Icon name="github" width={24} height={24} class='glow-icon' />
+					<span>GitHub</span>
+				</li>
+			</ul>
+		</Card>
+		<Card>
+			<span class="status-text">
+				I'm <span class="text-glow">online</span>.
+			</span>
+		</Card>
+		<Card class="flex-col-card">
+			<ImageGlow width={80} height={80} src='/img/test-cover.png' alt="Louis looking out of a window" loading='eager' />
+			<div class="song-info">
+				<span class="song-title">can you see me in the dark?</span>
+				<span class="song-artist">Halestorm, I Prevail</span>
+			</div>
+			<div class="listening-status">
+				<div class="status-indicator" />
+				<span>currently listening</span>
+			</div>
+		</Card>
+	</div>
+	<div class="layout-grid-right" slot="right">
+		<Card>
+			<div class="header-container">
+				<Icon name="user" width={24} height={24} class='glow-icon' />
+				<h2>About me</h2>
+			</div>
+			<div class="prose">
+				<p>
+					Lorem ipsum dolor sit amet. Sit voluptatibus galisum quo nisi necessitatibus et autem vitae et iusto excepturi ab dolor fugiat et porro neque. 
+					Et magnam maxime id corrupti autem eum ducimus nisi est laudantium perspiciatis et reprehenderit neque. Est quos rerum sed consequuntur molestiae 
+					aut galisum nisi ut enim autem non voluptatem facere.
+				</p>
+	
+				<p>Ut magnam esse 33 corporis ipsum quo voluptas illum et veritatis veritatis. Sed inventore illo et accusantium magni 33 odio cumque!</p>
+			</div>
+		</Card>
+		<Card>
+			<div class="header-container">
+				<Icon name="rss" width={24} height={24} class='glow-icon' />
+				<h2>Latest Posts</h2>
+			</div>
+			<div class="content-container">
+				{posts.map((post) => (
+					<a href={`/blog/${post.id}`} class="post-container">
+						<div class="post-header">
+							<h3>{post.data.title}</h3>
+							<span class="post-date">{post.data.createdAt.toLocaleDateString()}</span>
+						</div>
+						<span>{post.data.description}</span>
+					</a>
+				))}
+			</div>
+		</Card>
+	</div>
 </Layout>
+
+<style>
+	.layout-grid-left, .layout-grid-right {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		gap: 2rem;
+	}
+
+	.flex-col-card {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.glow-icon {
+		color: #8c5cf5;
+		filter: drop-shadow(0 0 4px #8c5cf5);
+	}
+
+	.status-text {
+		font-size: 2rem;
+		font-weight: 800;
+		text-align: center;
+		width: 100%;
+		display: block;
+	}
+
+	.text-glow {
+		color: #8c5cf5;
+		filter: drop-shadow(0 0 12px #8c5cf5);
+	}
+
+	.song-info {
+		width: 100%;
+		margin-top: .5rem;
+		display: flex;
+		flex-direction: column;
+		gap: .25rem;
+		margin-bottom: .75rem;
+	}
+
+	.song-title {
+		font-size: 1.25rem;
+		font-weight: 800;
+		display: block;
+	}
+
+	.listening-status {
+		display: flex;
+		flex-direction: row;
+		gap: .5rem;
+		align-items: center;
+		color: #c7c7c7;
+		font-size: .925rem;
+	}
+
+	.status-indicator {
+		width: .5rem;
+		height: .5rem;
+		border-radius: 50%;
+		background-color: #8c5cf5;
+		position: relative;
+		top: 1px;
+		filter: drop-shadow(0 0 4px #8c5cf5);
+	}
+
+	.header-container {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.header-container * {
+		margin: 0;
+	}
+
+	.prose {
+		line-height: 1.6;
+	}
+
+	.post-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1rem;
+		border-radius: .5rem;
+		border: 1px solid #353535;
+		color: #ffffff;
+		text-decoration: none;
+		transition: background-color .15s ease, border .15s ease;
+	}
+
+	.post-container:hover, .post-container:focus-visible {
+		background-color: rgba(140, 92, 245, .125);
+		border: 1px solid #8c5cf5;
+	}
+
+	.post-container:focus-visible {
+		outline: none;
+	}
+
+	.post-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.post-header h3 {
+		margin: 0;
+	}
+
+	.post-date {
+		color: #c7c7c7;
+	}
+</style>

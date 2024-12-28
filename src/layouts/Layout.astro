@@ -1,22 +1,70 @@
-<!doctype html>
+---
+import '../styles/reset.css';
+import '../styles/globals.css';
+
+import Background from '../components/Background.astro';
+import Navbar from '../components/Navbar.astro';
+import LayoutGrid from '../components/LayoutGrid.astro';
+
+const THEME_COLOR = '#8c5cf5';
+const TWITTER_HANDLE = '@astrodotbuild';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: ImageMetadata;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content={THEME_COLOR}>
+
+		<link rel="canonical" href={Astro.site} />
+
+		<meta name="og:title" content={title} />
+		<meta name="og:description" content={description} />
+		<meta name="og:image" content={image?.src} />
+		<meta name="og:url" content={Astro.site} />
+		<meta name="og:type" content="website" />
+		<meta name="og:locale" content="en" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content={TWITTER_HANDLE} />
+		<meta name="twitter:creator" content={TWITTER_HANDLE} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image?.src} />
 	</head>
 	<body>
-		<slot />
+		<main>
+			<Navbar />
+			<LayoutGrid>
+				<slot name="left" slot="left" />
+				<slot name="right" slot="right" />
+			</LayoutGrid>
+		</main>
+		<Background />
 	</body>
 </html>
-
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+	main {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+		padding: 1rem 0;
 	}
 </style>

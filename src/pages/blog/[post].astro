@@ -1,0 +1,206 @@
+---
+import Card from "../../components/Card.astro";
+import Layout from "../../layouts/Layout.astro";
+
+import type { GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { getCollection } from "astro:content";
+
+/**
+ * Estimates the time it takes to read a post in minutes based on:
+ * - A reading speed of 200 words per minute
+ * - 10 seconds per image
+ * - 20 seconds per code block
+ * 
+ * @param post The post to estimate the reading time for
+ */
+function timeToRead(post: CollectionEntry<'posts'>): number {
+  const numWords = (post.body || "")
+    .replace(/.*\[(.*?)\].*/gm, "$1")
+    .replace(/```.*?```/gms, "")
+    .split(/\s+/).length;
+
+  const numImages = post.body?.match(/!\[/g)?.length || 0;
+  const numCodeblocks = post.body?.match(/```/g)?.length || 0;
+
+  return Math.ceil(numWords / 200) + Math.ceil(numImages / 6) + Math.ceil(numCodeblocks / 3);
+};
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({ params: { post: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { Content, headings } = await render(post);
+
+console.log(`${timeToRead(post)} minutes`);
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+>
+  <div class="left" slot="left">
+    <Card class="toc-card">
+      <h2 class="no-mt">Table of contents</h2>
+      <ol>
+        <li class="toc-li">
+          <a href={`#_top`} class="active">{post.data.title}</a>
+        </li>
+        {headings.map((heading, i) => (
+          <li class="toc-li">
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ol>
+    </Card>
+  </div>
+  <article slot="right">
+    <Card>
+      <div class="image-placeholder">
+        Image Placeholder (just take the thing from StudioCMS for this)
+      </div>
+      <h1 id="_top" class="no-mt post-header">{post.data.title}</h1>
+      <span>{post.data.createdAt.toLocaleDateString()}</span>
+      <span>{`${timeToRead(post)} minutes`}</span>
+      <hr />
+      <Content />
+    </Card>
+  </article>
+</Layout>
+<script>
+  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-li a');
+  const headings = document.querySelectorAll<HTMLElement>('article h1, article h2, article h3, article h4');
+  const tocMap = new Map<Element, HTMLElement>();
+
+  // Map TOC links to their corresponding headings
+  tocLinks.forEach((link) => {
+    const id = link.href.split('#')[1];
+    const heading = document.getElementById(id);
+    if (heading) tocMap.set(heading, link as HTMLElement);
+
+    if (heading?.tagName === 'H3') {
+      link.style.marginLeft = '1rem';
+    }
+  });
+
+  function checkVisibility(el: HTMLElement) {
+    var rect = el.getBoundingClientRect();
+    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    for (const value of tocMap.values()) {
+      value.classList.remove('active');
+    }
+
+    for (const heading of headings) {
+      // check if this specific heading is visible on the screen
+      const isVisible = checkVisibility(heading);
+
+      const link = tocMap.get(heading);
+
+      if (!isVisible) {
+        continue;
+      }
+
+      if(link) link.classList.add('active');
+
+      break;
+    }
+  }, { threshold: 0, root: null, rootMargin: '0px' });
+
+  // Observe all headings
+  headings.forEach((heading) => observer.observe(heading));
+</script>
+<style is:global>
+  article h1,
+  article h2,
+  article h3,
+  article h4 {
+    scroll-margin: 4rem;
+  }
+
+  article {
+    line-height: 1.6;
+  }
+
+  p:has(img) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  ol {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-bottom: 0;
+    list-style-type: none;
+    position: relative;
+  }
+
+  .reading-indicator {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 999px;
+    background-color: #8c5cf5;
+    filter: drop-shadow(0 0 4px #8c5cf5);
+    opacity: 0;
+    transition: all .15s ease;
+  }
+
+  .reading-indicator.active {
+    opacity: 1;
+  }
+
+  ol li a {
+    color: #c7c7c7;
+    font-size: .925rem;
+  }
+
+  ol li a:hover {
+    color: white;
+    text-decoration: none;
+  }
+
+  .no-mt {
+    margin-top: 0;
+  }
+
+  ol li a.active {
+    color: #8c5cf5;
+  }
+
+  .image-placeholder {
+    aspect-ratio: 16 / 9;
+    background-color: #353535;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .left {
+    height: 100%;
+    position: relative;
+  }
+
+  .toc-card {
+    position: sticky;
+    top: 2rem;
+  }
+</style>

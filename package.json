@@ -9,6 +9,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.1.1"
+    "@astrojs/mdx": "^4.0.3",
+    "@astrojs/sitemap": "^3.2.1",
+    "@iconify-json/lucide": "^1.2.20",
+    "@iconify/utils": "^2.2.1",
+    "astro": "^5.1.1",
+    "astro-pagefind": "^1.7.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4"
   }
 }
