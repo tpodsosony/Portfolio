@@ -12,7 +12,6 @@ import node from '@astrojs/node';
 export default defineConfig({
   site: 'https://spectre.louisescher.dev',
   output: 'static',
-
   integrations: [
     expressiveCode(),
     mdx(),
