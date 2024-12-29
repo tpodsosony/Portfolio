@@ -34,6 +34,8 @@ class PageBackground {
   private letterPositions: LetterPosition[] = [];
   private letterInstances: LetterInstance[] = [];
 
+  private primaryRgb: string;
+
   /**
    * Initializes the background on the page.
    * @param baseCanvas - The base canvas element. Used for static letters.
@@ -59,6 +61,9 @@ class PageBackground {
 
     overlayCanvas.width = this.width;
     overlayCanvas.height = this.height;
+
+    // Set the primary color to the first color in the theme
+    this.primaryRgb = window.getComputedStyle(document.documentElement).getPropertyValue('--primary-rgb').trim();
 
     this.initBackground();
   
@@ -108,9 +113,9 @@ class PageBackground {
       this.overlayCtx.font = 'bold 28px Geist Mono';
       this.overlayCtx.textAlign = 'start';
       this.overlayCtx.textBaseline = 'top';
-      this.overlayCtx.fillStyle = "rgba(138, 92, 245, 0)";
+      this.overlayCtx.fillStyle = `rgba(${this.primaryRgb}, 0)`;
       this.overlayCtx.shadowBlur = 16;
-      this.overlayCtx.shadowColor = "rgba(138, 92, 245, 0)";
+      this.overlayCtx.shadowColor = `rgba(${this.primaryRgb}, 0)`;
       this.overlayCtx.fillText(letter.letter, letter.x, letter.y);
   
       // Some number between LETTER_FADE_DURATION[0] and LETTER_FADE_DURATION[1] (in seconds)
@@ -210,9 +215,9 @@ class PageBackground {
       this.overlayCtx.font = 'bold 28px Geist Mono';
       this.overlayCtx.textAlign = 'start';
       this.overlayCtx.textBaseline = 'top';
-      this.overlayCtx.fillStyle = `rgba(138, 92, 245, ${alpha})`;
+      this.overlayCtx.fillStyle = `rgba(${this.primaryRgb}, ${alpha})`;
       this.overlayCtx.shadowBlur = 16;
-      this.overlayCtx.shadowColor = `rgba(138, 92, 245, ${alpha})`;
+      this.overlayCtx.shadowColor = `rgba(${this.primaryRgb}, ${alpha})`;
       this.overlayCtx.fillText(letter.letter, letter.x, letter.y);
     }
     

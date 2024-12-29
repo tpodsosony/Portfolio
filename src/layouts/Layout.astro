@@ -5,17 +5,20 @@ import '../styles/globals.css';
 import Background from '../components/Background.astro';
 import Navbar from '../components/Navbar.astro';
 import LayoutGrid from '../components/LayoutGrid.astro';
-
-const THEME_COLOR = '#8c5cf5';
-const TWITTER_HANDLE = '@astrodotbuild';
+import { name, themeColor, twitterHandle } from 'spectre:globals';
 
 interface Props {
 	title: string;
-	description: string;
+	description?: string;
 	image?: ImageMetadata;
+	pagefindIgnore?: boolean;
+	article?: {
+		createdAt: Date;
+		updatedAt?: Date;
+	};
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, pagefindIgnore, article } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -27,27 +30,39 @@ const { title, description, image } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 
 		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta name="theme-color" content={THEME_COLOR}>
+		{description && <meta name="description" content={description} />}
+		<meta name="theme-color" content={themeColor}>
 
 		<link rel="canonical" href={Astro.site} />
 
 		<meta name="og:title" content={title} />
-		<meta name="og:description" content={description} />
-		<meta name="og:image" content={image?.src} />
+		{description && <meta name="og:description" content={description} />}
+		<meta name="og:image" content={image?.src || '/img/og.png'} />
 		<meta name="og:url" content={Astro.site} />
-		<meta name="og:type" content="website" />
+		{!article && <meta name="og:type" content="website" />}
 		<meta name="og:locale" content="en" />
 
+		{article && (
+			<meta name="og:type" content="article" />
+			<meta property="article:published_time" content={article.createdAt.toISOString()} />
+			<meta name="author" content={name} />
+		)}
+
+		{article && article.updatedAt && (
+			<meta property="article:modified_time" content={article.updatedAt.toISOString()} />
+		)}
+
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:site" content={TWITTER_HANDLE} />
-		<meta name="twitter:creator" content={TWITTER_HANDLE} />
+		{twitterHandle && (
+			<meta name="twitter:site" content={twitterHandle} />
+			<meta name="twitter:creator" content={twitterHandle} />
+		)}
 		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={image?.src} />
+		{description && <meta name="twitter:description" content={description} />}
+		<meta name="twitter:image" content={image?.src || '/img/og.png'} />
 	</head>
 	<body>
-		<main>
+		<main data-pagefind-ignore={pagefindIgnore}>
 			<Navbar />
 			<LayoutGrid>
 				<slot name="left" slot="left" />

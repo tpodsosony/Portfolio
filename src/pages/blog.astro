@@ -1,15 +1,19 @@
 ---
+import '../styles/article-list.css';
+
 import { getCollection } from "astro:content";
 import Card from "../components/Card.astro";
 import Icon from "../components/Icon.astro";
 import Layout from "../layouts/Layout.astro";
+import { openGraph } from 'spectre:globals';
 
 const posts = await getCollection('posts', (post) => post.data.draft !== true);
 const tags = posts.flatMap((post) => post.data.tags);
 ---
 <Layout
-  title="Blog"
-  description="Blog stuff"
+  title={openGraph.blog.title || "Blog"}
+  description={openGraph.blog.description}
+	pagefindIgnore
 >
   <div class="layout-grid-left" slot="left">
     <Card class="flex-col-card">
@@ -76,76 +80,3 @@ const tags = posts.flatMap((post) => post.data.tags);
     }
   });
 </script>
-<style>
-  .header-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .header-container * {
-    margin: 0;
-  }
-
-  .post-container {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding: 1rem;
-		border: 1px solid #353535;
-		color: #ffffff;
-		text-decoration: none;
-		transition: background-color .15s ease, border .15s ease;
-	}
-
-	.post-container:hover, .post-container:focus-visible {
-		background-color: rgba(140, 92, 245, .125);
-		border: 1px solid #8c5cf5;
-	}
-
-	.post-container:focus-visible {
-		outline: none;
-	}
-
-	.post-header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	.post-header h3 {
-		margin: 0;
-	}
-
-	.post-date {
-		color: #c7c7c7;
-	}
-
-  .tags-list {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    gap: 1rem;
-  }
-
-  .blog-tag {
-    padding: .25rem .5rem;
-    background: #252525;
-    color: white;
-    text-decoration: none;
-  }
-
-  .blog-tag:hover, .blog-tag:focus-visible {
-    background: #353535;
-  }
-
-  .blog-tag.active {
-    background: #8c5cf5;
-  }
-</style>

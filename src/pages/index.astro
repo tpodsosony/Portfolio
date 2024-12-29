@@ -1,5 +1,7 @@
 ---
-import ProfilePicture from '../assets/pfp.jpg';
+import '../styles/index.css';
+
+import ProfilePicture from '../assets/pfp.png';
 
 import Card from '../components/Card.astro';
 import Layout from '../layouts/Layout.astro';
@@ -8,12 +10,15 @@ import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { getEntry } from 'astro:content';
 import { render } from 'astro:content';
+import { name, openGraph } from 'spectre:globals';
 
-const [posts, projects, about, workExperience] = await Promise.all([
+const [posts, projects, about, workExperience, quickInfo, socials] = await Promise.all([
 	getCollection('posts', (post) => post.data.draft !== true),
 	getCollection('projects'),
 	getEntry('other', 'about'),
-	getCollection('workExperience')
+	getCollection('workExperience'),
+	getCollection('quickInfo'),
+	getCollection('socials')
 ]);
 
 // biome-ignore lint/style/noNonNullAssertion: Should always be defined.
@@ -21,53 +26,36 @@ const { Content: About } = await render(about!);
 ---
 
 <Layout
-	title='Louis Escher'
-	description='Welcome to my corner of the internet.'
+	title={openGraph.home.title || name}
+	description={openGraph.home.description}
 	image={ProfilePicture}
+	pagefindIgnore
 >
 	<div class="layout-grid-left" slot="left">
 		<Card class="flex-col-card">
-			<ImageGlow width={80} height={80} src={ProfilePicture} alt="Louis looking out of a window" loading='eager' />
-			<h2>Louis Escher</h2>
+			<ImageGlow quality={100} width={80} height={80} src={ProfilePicture} alt="Louis looking out of a window" loading='eager' />
+			<h2>{name}</h2>
 			<ul class="overview-list">
-				<li>
-					<Icon name="cake" width={24} height={24} class='glow-icon' />
-					<span>18 years old</span>
-				</li>
-				<li>
-					<Icon name="earth" width={24} height={24} class='glow-icon' />
-					<span>Germany</span>
-				</li>
-				<li>
-					<Icon name="brain-circuit" width={24} height={24} class='glow-icon' />
-					<span>5,5 years of experience</span>
-				</li>
+				{quickInfo.map((info) => (
+					<li>
+						<Icon name={info.data.icon} width={24} height={24} class='glow-icon' />
+						<span>{info.data.text}</span>
+					</li>
+				))}
 			</ul>
 		</Card>
 		<Card>
 			<h3 class="no-mt">Socials</h3>
 			<ul class="overview-list">
-				<li>
-					<Icon name="github" width={24} height={24} class='glow-icon' />
-					<span>GitHub</span>
-				</li>
+				{socials.map((item) => (
+					<li>
+						<a href={item.data.link} class="socials-link">
+							<Icon name={item.data.icon} width={24} height={24} class='glow-icon' />
+							<span>{item.data.text}</span>
+						</a>
+					</li>
+				))}
 			</ul>
-		</Card>
-		<Card>
-			<span class="status-text">
-				I'm <span class="text-glow">online</span>.
-			</span>
-		</Card>
-		<Card class="flex-col-card">
-			<ImageGlow width={80} height={80} src='/img/test-cover.png' alt="Louis looking out of a window" loading='eager' />
-			<div class="song-info">
-				<span class="song-title">can you see me in the dark?</span>
-				<span class="song-artist">Halestorm, I Prevail</span>
-			</div>
-			<div class="listening-status">
-				<div class="status-indicator" />
-				<span>currently listening</span>
-			</div>
 		</Card>
 	</div>
 	<div class="layout-grid-right" slot="right">
@@ -131,138 +119,3 @@ const { Content: About } = await render(about!);
 			</div>
 	</div>
 </Layout>
-
-<style>
-	.layout-grid-left, .layout-grid-right {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		gap: 2rem;
-	}
-
-	.flex-col-card {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.status-text {
-		font-size: 2rem;
-		font-weight: 800;
-		text-align: center;
-		width: 100%;
-		display: block;
-	}
-
-	.text-glow {
-		color: #8c5cf5;
-		filter: drop-shadow(0 0 12px #8c5cf5);
-	}
-
-	.song-info {
-		width: 100%;
-		margin-top: .5rem;
-		display: flex;
-		flex-direction: column;
-		gap: .25rem;
-		margin-bottom: .75rem;
-	}
-
-	.song-title {
-		font-size: 1.25rem;
-		font-weight: 800;
-		display: block;
-	}
-
-	.listening-status {
-		display: flex;
-		flex-direction: row;
-		gap: .5rem;
-		align-items: center;
-		color: #c7c7c7;
-		font-size: .925rem;
-	}
-
-	.status-indicator {
-		width: .5rem;
-		height: .5rem;
-		border-radius: 50%;
-		background-color: #8c5cf5;
-		position: relative;
-		top: 1px;
-		filter: drop-shadow(0 0 4px #8c5cf5);
-	}
-
-	.header-container {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 1rem;
-	}
-
-	.header-container * {
-		margin: 0;
-	}
-
-	.prose {
-		line-height: 1.6;
-	}
-
-	.post-container {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding: 1rem;
-		border: 1px solid #353535;
-		color: #ffffff;
-		text-decoration: none;
-		transition: background-color .15s ease, border .15s ease;
-	}
-
-	.post-container:hover, .post-container:focus-visible {
-		background-color: rgba(140, 92, 245, .125);
-		border: 1px solid #8c5cf5;
-	}
-
-	.post-container:focus-visible {
-		outline: none;
-	}
-
-	.post-header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	.post-header h3 {
-		margin: 0;
-	}
-
-	.post-date, .work-experience-duration {
-		color: #c7c7c7;
-	}
-
-	.work-experience-container {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.work-experience-entry:not(:last-of-type) {
-		border-bottom: 1px solid #353535;
-		padding-bottom: 1rem;
-	}
-
-	.work-experience-duration {
-		font-size: .925rem;
-	}
-
-	.work-experience-company {
-		margin-top: .25rem;
-		margin-bottom: .5rem;
-	}
-
-	.work-experience-role {
-		margin-bottom: .75rem;
-	}
-</style>

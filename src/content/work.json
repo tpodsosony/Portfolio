@@ -1,16 +1,9 @@
 [
   {
     "id": 1,
-    "title": "Software Developer",
-    "company": "SAP SE",
-    "duration": "2021 - present",
-    "description": "Working as a software developer in the SAP Cloud Platform Integration team."
-  },
-  {
-    "id": 2,
-    "title": "Software Developer",
-    "company": "SAP SE",
-    "duration": "2022 - present",
-    "description": "Working as a software developer in the SAP Cloud Platform Integration team."
+    "duration": "2024 - present",
+    "company": "Astro Community",
+    "title": "Astro Theme",
+    "description": "Existing as an Astro theme for anyone to use."
   }
 ]

@@ -1,4 +1,6 @@
 ---
+import '../../styles/article.css';
+
 import ImageGlow from "../../components/ImageGlow.astro";
 import Card from "../../components/Card.astro";
 import Layout from "../../layouts/Layout.astro";
@@ -46,6 +48,11 @@ const { Content, headings } = await render(post);
 <Layout
   title={post.data.title}
   description={post.data.description}
+  image={post.data.image}
+  article={{
+    createdAt: post.data.createdAt,
+    updatedAt: post.data.updatedAt,
+  }}
 >
   <div class="left" slot="left">
     <Card class="toc-card">
@@ -55,16 +62,16 @@ const { Content, headings } = await render(post);
           <a href={`#_top`} class="active">{post.data.title}</a>
         </li>
         {headings.map((heading, i) => (
-          <li class="toc-li">
+          <li class="toc-li" data-depth={heading.depth}>
             <a href={`#${heading.slug}`}>{heading.text}</a>
           </li>
         ))}
       </ol>
     </Card>
   </div>
-  <article slot="right">
+  <article slot="right" data-pagefind-body>
     <Card>
-      <div class="article-header" id="_top">
+      <div class="article-header" id="_top" data-pagefind-ignore>
         <ImageGlow class="article-image" src={post.data.image} alt={post.data.title} />
         <div class="header">
           <div>
@@ -73,89 +80,20 @@ const { Content, headings } = await render(post);
           <div class="article-info">
             <span>{post.data.createdAt.toLocaleDateString()}</span>
             <span>/</span>
-            <span>{timeToRead(post)} minutes to read</span>
+            <span>{timeToRead(post)} minute{timeToRead(post) === 1 ? "" : "s"} to read</span>
             <span>/</span>
             <span>Tags: {post.data.tags.map((tag) => tag.id).join(", ")}</span>
           </div>
         </div>
       </div>
       <Content />
-      <hr class="end-of-blog" />
-      <a href="/blog" class="block-link">← Back to blog</a>
+      <hr class="end-of-article" />
+      <a href="/blog" class="block-link" data-pagefind-ignore>← Back to blog</a>
     </Card>
   </article>
 </Layout>
-<script>
-  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-li a');
-  const headings = document.querySelectorAll<HTMLElement>('#_top, article h1, article h2, article h3, article h4');
-  const tocMap = new Map<Element, HTMLElement>();
-
-  // Map TOC links to their corresponding headings
-  tocLinks.forEach((link) => {
-    const id = link.href.split('#')[1];
-    const heading = document.getElementById(id);
-    if (heading) tocMap.set(heading, link as HTMLElement);
-
-    if (heading?.tagName === 'H3') {
-      link.style.marginLeft = '1rem';
-    }
-  });
-
-  function checkVisibility(el: HTMLElement) {
-    var rect = el.getBoundingClientRect();
-    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    for (const value of tocMap.values()) {
-      value.classList.remove('active');
-    }
-
-    for (const heading of headings) {
-      // check if this specific heading is visible on the screen
-      const isVisible = checkVisibility(heading);
-
-      const link = tocMap.get(heading);
-
-      if (!isVisible) {
-        continue;
-      }
-
-      if(link) link.classList.add('active');
-
-      break;
-    }
-  }, { threshold: 0, root: null, rootMargin: '0px' });
-
-  // Observe all headings
-  headings.forEach((heading) => observer.observe(heading));
-</script>
+<script src="../../scripts/toc.ts" />
 <style is:global>
-  article h1,
-  article h2,
-  article h3,
-  article h4 {
-    scroll-margin: 4rem;
-    margin-top: 2rem;
-  }
-
-  article {
-    line-height: 1.6;
-  }
-
-  p:has(img) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  p img {
-    max-width: 100%;
-  }
-
   .toc-card ol {
     padding: 0;
     display: flex;
@@ -179,13 +117,9 @@ const { Content, headings } = await render(post);
     text-decoration: none;
   }
 
-  .no-mt {
-    margin-top: 0;
-  }
-
-  ol li a.active {
+  .toc-card ol li a.active {
     color: white;
-    background: #8c5cf5;
+    background: var(--primary);
   }
 
   .left {
@@ -196,82 +130,5 @@ const { Content, headings } = await render(post);
   .toc-card {
     position: sticky;
     top: 2rem;
-  }
-
-  .article-header {
-    position: relative;
-    width: 100%;
-    height: fit-content;
-    scroll-margin-top: 2rem;
-  }
-
-  .header {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    position: absolute;
-    bottom: 1.5rem;
-    left: 1rem;
-    max-width: calc(100% - 3rem);
-    z-index: 2;
-  }
-
-  .post-header {
-    margin-bottom: 0;
-    font-size: 2em;
-    background: #ffffff;
-    padding: .25rem .675rem;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    position: relative;
-    line-height: 1.2;
-    display: inline;
-    color: #000000;
-  }
-
-  .article-info {
-    display: flex;
-    flex-direction: row;
-    gap: .5rem;
-    font-family: 'Ghost Mono', monospace;
-    background: #ffffff;
-    color: #000000;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    padding: 0 .75rem;
-    width: fit-content;
-  }
-
-  code:not(.astro-code code) {
-    background-color: #353535;
-    padding: .125rem .25rem;
-    font-size: .925rem;
-  }
-
-  .article-image {
-    width: 100%;
-    height: auto;
-    z-index: 1;
-  }
-
-  .end-of-blog {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 100%;
-    height: 1px;
-    background-color: #353535;
-    border: none;
-  }
-
-  .block-link {
-    color: white;
-    padding: .25rem .5rem;
-  }
-
-  .block-link:hover, .block-link:focus-visible {
-    color: white;
-    background-color: #8c5cf5;
-    text-decoration: none;
-    outline: none;
   }
 </style>
