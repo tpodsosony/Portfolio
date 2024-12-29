@@ -43,6 +43,86 @@ export const optionsSchema = z.object({
      */
     projects: openGraphOptionsSchema,
   }),
+  /**
+   * All of this information can be find on [giscus' config page](https://giscus.app) under "Enable giscus" after entering all information.
+   */
+  giscus: z.union([
+    z.literal(false),
+    /**
+     *  data-repo="louisescher/spectre"
+        data-repo-id="R_kgDONjm3ig"
+        data-category="General"
+        data-category-id="DIC_kwDONjm3is4ClmBF"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-theme="https://giscus.app/themes/custom_example.css"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+     */
+    z.object({
+      /**
+       * The repository name.
+       */
+      repository: z.string(),
+      /**
+       * The repository's ID.
+       */
+      repositoryId: z.string(),
+      /**
+       * The category of the repository.
+       */
+      category: z.string(),
+      /**
+       * The category's ID.
+       */
+      categoryId: z.string(),
+      /**
+       * The mapping of the comments.
+       */
+      mapping: z.union([
+        z.literal('pathname'),
+        z.literal('url'),
+        z.literal('title'),
+        z.literal('og:title'),
+        z.literal('specific'),
+        z.literal('number')
+      ]),
+      /**
+       * The term to use for the comments.
+       */
+      term: z.string().optional(),
+      /**
+       * Whether the comments are strict.
+       */
+      strict: z.boolean(),
+      /**
+       * Whether reactions are enabled.
+       */
+      reactionsEnabled: z.boolean(),
+      /**
+       * Whether metadata should be emitted.
+       */
+      emitMetadata: z.boolean(),
+      /**
+       * The theme to use for the comments. Defaults to `/styles/giscus.css`, which is provided by the theme and located in the `public/` directory.
+       */
+      theme: z.string().optional(),
+      /**
+       * The language to use for the comments.
+       */
+      lang: z.string(),
+    }).refine((data) => {
+      if (data.mapping === 'specific' || data.mapping === 'number') {
+        return !!data.term;
+      }
+
+      return true;
+    }).optional(),
+  ])
 });
 
 export default function integration(options: z.infer<typeof optionsSchema>): AstroIntegration {
@@ -57,6 +137,7 @@ export default function integration(options: z.infer<typeof optionsSchema>): Ast
       blog: ${JSON.stringify(validatedOptions.openGraph.blog)},
       projects: ${JSON.stringify(validatedOptions.openGraph.projects)},
     };
+    export const giscus = ${validatedOptions.giscus ? JSON.stringify(validatedOptions.giscus) : 'false'};
   `);
 
 	return {

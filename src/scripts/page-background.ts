@@ -277,6 +277,13 @@ async function initializeBackground() {
   window.addEventListener('resize', () => {
     background.resizeBackground();
   });
+
+  // Add a listener for when the body of the page grows
+  const observer = new ResizeObserver(() => {
+    background.resizeBackground();
+  });
+
+  observer.observe(document.body);
 }
 
 initializeBackground();

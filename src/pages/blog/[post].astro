@@ -9,6 +9,7 @@ import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
+import { giscus } from 'spectre:globals';
 
 /**
  * Estimates the time it takes to read a post in minutes based on:
@@ -90,6 +91,30 @@ const { Content, headings } = await render(post);
       <hr class="end-of-article" />
       <a href="/blog" class="block-link" data-pagefind-ignore>← Back to blog</a>
     </Card>
+    {giscus && (
+      <Card>
+        <div class="comments" data-pagefind-ignore>
+          <script
+            is:inline
+            src="https://giscus.app/client.js"
+            data-repo={giscus.repository}
+            data-repo-id={giscus.repositoryId}
+            data-category={giscus.category}
+            data-category-id={giscus.categoryId}
+            data-mapping={giscus.mapping}
+            data-strict={giscus.strict === true ? "1" : "0"}
+            data-reactions-enabled={giscus.reactionsEnabled === true ? "1" : "0"}
+            data-emit-metadata={giscus.emitMetadata === true ? "1" : "0"}
+            data-input-position="bottom"
+            data-theme={giscus.theme || Astro.url.origin + "/styles/giscus.css"}
+            data-lang={giscus.lang}
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+          />
+        </div>
+      </Card>
+    )}
   </article>
 </Layout>
 <script src="../../scripts/toc.ts" />
@@ -130,5 +155,15 @@ const { Content, headings } = await render(post);
   .toc-card {
     position: sticky;
     top: 2rem;
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .comments * {
+    border-color: #353535 !important;
   }
 </style>

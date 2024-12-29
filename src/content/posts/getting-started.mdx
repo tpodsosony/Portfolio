@@ -88,6 +88,37 @@ export default defineConfig({
 Optionally, you can also add the `themeColor` and `twitterHandle` parameters next to the `name` parameter in the integration options.
 The theme color defaults to `#8c5cf5`. The Twitter handle doesn't have a default value, and the relevant meta tags will be omitted if it's not provided.
 
+### Comments
+
+This theme has comments powered by [giscus](https://giscus.app). If you want to use them, first configure your repository on their website. Then, add the `giscus` option and configure it based on the script tag you get from giscus:
+
+```ts {"        Add the info from giscus here:":7-18}
+export default defineConfig({
+  // ...
+  integrations: [
+    // ...
+    spectre({
+      // ...
+
+      giscus: {
+        repository: '...',
+        repositoryId: '...',
+        category: '...',
+        categoryId: '...',
+        mapping: '...',
+        strict: true | false,
+        reactionsEnabled: true | false,
+        emitMetadata: true | false,
+        lang: '...',
+      }
+    })
+  ]
+});
+```
+
+If you want to modify the giscus colors, you can do so in the `public/styles/giscus.css` file. Alternatively,
+you can change the `giscus.theme` option to one of the provided options by discus.
+
 ## Authoring Content
 
 Now, let's move on to the `src/content/` directory. You'll find a few JSON files there, along with a few directories. The difference? The JSON files are used for quick infos, social links and other information that doesn't need the full MDX capabilities. The directories are for the actual content, like blog posts and projects.

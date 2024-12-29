@@ -29,6 +29,17 @@ export default defineConfig({
         projects: {
           title: 'Projects'
         }
+      },
+      giscus: {
+        repository: 'louisescher/spectre',
+        repositoryId: 'R_kgDONjm3ig',
+        category: 'General',
+        categoryId: 'DIC_kwDONjm3is4ClmBF',
+        mapping: 'pathname',
+        strict: true,
+        reactionsEnabled: true,
+        emitMetadata: false,
+        lang: 'en',
       }
     })
   ]
