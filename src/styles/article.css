@@ -101,6 +101,17 @@ ol li a.active {
   z-index: 2;
 }
 
+@media screen and (max-width: 640px) {
+  .header {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: fit-content;
+    max-width: none;
+    margin-top: 1rem;
+  }
+}
+
 .post-header {
   margin-bottom: 0;
   font-size: 2em;
@@ -146,18 +157,6 @@ code:not(.astro-code code) {
   height: 1px;
   background-color: #353535;
   border: none;
-}
-
-.block-link {
-  color: white;
-  padding: .25rem .5rem;
-}
-
-.block-link:hover, .block-link:focus-visible {
-  color: white;
-  background-color: var(--primary);
-  text-decoration: none;
-  outline: none;
 }
 
 blockquote {
