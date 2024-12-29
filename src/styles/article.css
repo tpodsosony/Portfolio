@@ -101,18 +101,7 @@ ol li a.active {
   z-index: 2;
 }
 
-@media screen and (max-width: 640px) {
-  .header {
-    position: relative;
-    bottom: 0;
-    left: 0;
-    width: fit-content;
-    max-width: none;
-    margin-top: 1rem;
-  }
-}
-
-.post-header {
+.article-h1 {
   margin-bottom: 0;
   font-size: 2em;
   background: #ffffff;
@@ -136,6 +125,31 @@ ol li a.active {
   -webkit-box-decoration-break: clone;
   padding: 0 .75rem;
   width: fit-content;
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: fit-content;
+    max-width: none;
+    margin-top: 1rem;
+  }
+
+  .article-h1 {
+    display: inline;
+    background-color: transparent;
+    padding: 0;
+    color: white;
+  }
+
+  .article-info {
+    display: block;
+    background-color: transparent;
+    padding: 0;
+    color: white;
+  }
 }
 
 code:not(.astro-code code) {

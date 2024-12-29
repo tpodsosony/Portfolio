@@ -46,16 +46,6 @@
   outline: none;
 }
 
-.post-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.post-header h3 {
-  margin: 0;
-}
-
 .post-date, .work-experience-duration {
   color: #c7c7c7;
 }

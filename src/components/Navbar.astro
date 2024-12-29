@@ -128,10 +128,7 @@ const path = Astro.url.pathname;
     document.querySelector('nav').classList.toggle('active');
   });
 
-  // Detect when screen size is smaller than 640px, change placeholder
-
   const handleTabletChange = () => {
-    console.log("test")
     if (window.matchMedia('(max-width: 640px)').matches) {
       searchElement.placeholder = 'Search';
     } else {
@@ -140,7 +137,7 @@ const path = Astro.url.pathname;
   }
 
   document.addEventListener('DOMContentLoaded', handleTabletChange);
-  window.addEventListener('resize', handleTabletChange);
+  document.addEventListener('resize', handleTabletChange);
 </script>
 <style>
   nav {
