@@ -6,10 +6,13 @@ import sitemap from '@astrojs/sitemap';
 import pagefind from 'astro-pagefind';
 import spectre from './package/integration';
 
+import node from '@astrojs/node';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://spectre.louisescher.dev',
   output: 'static',
+
   integrations: [
     expressiveCode(),
     mdx(),
@@ -42,5 +45,9 @@ export default defineConfig({
         lang: 'en',
       }
     })
-  ]
+  ],
+
+  adapter: node({
+    mode: 'standalone'
+  })
 });
