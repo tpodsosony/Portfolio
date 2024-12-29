@@ -108,7 +108,7 @@ export const optionsSchema = z.object({
        */
       emitMetadata: z.boolean(),
       /**
-       * The theme to use for the comments. Defaults to `/styles/giscus.css`, which is provided by the theme and located in the `public/` directory.
+       * The theme to use for the comments. Defaults to `https://spectre.louisescher.dev/styles/giscus`.
        */
       theme: z.string().optional(),
       /**
