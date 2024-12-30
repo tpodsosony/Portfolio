@@ -18,7 +18,6 @@
     "@iconify/utils": "^2.2.1",
     "astro": "^5.1.1",
     "astro-expressive-code": "^0.38.3",
-    "astro-pagefind": "^1.7.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
