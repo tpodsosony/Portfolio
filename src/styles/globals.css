@@ -46,7 +46,7 @@ main {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
   padding: 2rem 0;
 }
 
@@ -137,5 +137,11 @@ main {
 
   main {
     padding-top: 0;
+    gap: 1rem;
+  }
+
+  .post-header {
+    flex-direction: column;
+    gap: .5rem;
   }
 }
