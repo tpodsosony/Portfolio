@@ -48,21 +48,6 @@ export const optionsSchema = z.object({
    */
   giscus: z.union([
     z.literal(false),
-    /**
-     *  data-repo="louisescher/spectre"
-        data-repo-id="R_kgDONjm3ig"
-        data-category="General"
-        data-category-id="DIC_kwDONjm3is4ClmBF"
-        data-mapping="pathname"
-        data-strict="1"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-theme="https://giscus.app/themes/custom_example.css"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-     */
     z.object({
       /**
        * The repository name.
