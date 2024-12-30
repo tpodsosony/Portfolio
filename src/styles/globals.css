@@ -71,6 +71,31 @@ main {
   background: #252525 !important;
 }
 
+.expressive-code figcaption {
+  background-color: #303030 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.expressive-code figcaption::before {
+  border: none !important;
+}
+
+.expressive-code span.title:not(.is-terminal span.title) {
+  background-color: #353535 !important;
+  border-radius: 0 !important;
+}
+
+.expressive-code span.title::after {
+  border-top: 1px solid var(--primary) !important;
+  border-bottom: 0 !important;
+}
+
+.expressive-code .frame.has-title:not(.is-terminal) figcaption.header {
+  background: #282828 !important;
+  border-radius: 0 !important;
+}
+
 .post-container {
   display: flex;
   flex-direction: column;

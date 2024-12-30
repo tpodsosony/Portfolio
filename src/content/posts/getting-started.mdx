@@ -51,7 +51,7 @@ First, head to the `src/assets/` directory. You'll find a pfp.png file there. Re
 
 Next, open the `astro.config.mjs` file and change the `site` parameter so that it matches your own site:
 
-```ts ins={11}
+```ts ins={11} title="astro.config.ts"
 import { defineConfig } from 'astro/config';
 
 import expressiveCode from 'astro-expressive-code';
@@ -69,7 +69,7 @@ export default defineConfig({
 
 After that, you can configure the site title and other details for the pages in the integration options:
 
-```ts {"        Your name:":6-7} {"        Titles and descriptions for non-content pages:":8-21}
+```ts {"        Your name:":6-7} {"        Titles and descriptions for non-content pages:":8-21} title="astro.config.ts"
 export default defineConfig({
   // ...
   integrations: [
@@ -103,7 +103,7 @@ The theme color defaults to `#8c5cf5`. The Twitter handle doesn't have a default
 
 This theme has comments powered by [giscus](https://giscus.app). If you want to use them, first configure your repository on their website. Then, add the `giscus` option and configure it based on the script tag you get from giscus:
 
-```ts {"        Add the info from giscus here:":7-18}
+```ts {"        Add the info from giscus here:":7-18} title="astro.config.ts"
 export default defineConfig({
   // ...
   integrations: [
@@ -143,7 +143,7 @@ Let's go down the list of JSON files and see what you can put in them:
 
 The `info.json` file contains the quick info you can see below your profile picture and name on the main page. It will appear in the same order you put it into this file! An item in the `info.json` file looks like this:
 
-```jsonc
+```jsonc title="info.json"
 {
   "id": 1, // The ID. Has to be unique for Astro's content collections to work.
   "icon": "cake", // The icon to display next to the text.
@@ -157,7 +157,7 @@ The icons come from [Lucide](https://lucide.dev), so pick one you like and place
 
 The `socials.json` file is similar to the `info.json` file in terms of structure and is used for the social links in the second card on the home page.
 
-```jsonc
+```jsonc title="socials.json"
 {
   "id": 1, // The ID, has to be unique.
   "icon": "github", // The icon to display next to the link.
@@ -170,7 +170,7 @@ The `socials.json` file is similar to the `info.json` file in terms of structure
 
 The `tags.json` file holds all tags for your blog posts. Whenever you want to create a new tag, add it here!
 
-```jsonc
+```jsonc title="tags.json"
 {
   "id": "guide" // The ID and name of the tag. Has to be unique.
 }
@@ -180,7 +180,7 @@ The `tags.json` file holds all tags for your blog posts. Whenever you want to cr
 
 Last but not least in terms of JSON files, `work.json`. This is where you put all your work experience! The following example contains all parts in the correct order, meaning that `duration` will come first when actually displayed on the page:
 
-```jsonc
+```jsonc title="work.json"
 {
   "id": 1, // The ID, has to be unique.
   "duration": "2024 - present", // Duration of the employment
