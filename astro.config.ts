@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 import expressiveCode from 'astro-expressive-code';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import pagefind from 'astro-pagefind';
 import spectre from './package/integration';
 
 import node from '@astrojs/node';
@@ -16,7 +15,6 @@ export default defineConfig({
     expressiveCode(),
     mdx(),
     sitemap(),
-    pagefind(),
     spectre({
       name: 'Spectre',
       openGraph: {
