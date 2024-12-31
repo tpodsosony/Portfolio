@@ -36,7 +36,7 @@ First, on line `114`, I parse the options using Zod. The important part is that 
 
 Next, starting from line `116`, using a helper function in `src/utils/virtual-module-plugin-builder.ts`, I create the virtual module. All I do is pass in a module ID (which I can then import from later), a name and a string containing the exports!
 
-If you noticed that the third string (from line `117` - `125`) suspiciously looks a lot like JS, you'd be correct! That is the code that gets injected into the virtual module that provides all of the code. This is also where you can see how your options are actually being brought into the virtual module itself.
+If you noticed that the third string (from line `117` - `125`) suspiciously looks a lot like JS, you'd be correct! That is the code that gets injected into the virtual module that provides all of the variables from the configuration. This is also where you can see how your options are actually being brought into the virtual module itself.
 
 The last important thing would be from line `131` to `139`, where I use one of Astro's integration hooks, specifically the [`astro:config:done`](https://docs.astro.build/en/reference/integrations-reference/#astroconfigdone) hook. It allows me to update the Astro configuration (from `astro.config.ts`) to retroactively add the Integration as a Vite plugin! (If you're new to Integrations, or Astro as a whole, don't worry. Vite is the runtime that Astro uses under the hood, and you don't need to understand it for now.)
 
