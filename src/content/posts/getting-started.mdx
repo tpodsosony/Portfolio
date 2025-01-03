@@ -146,12 +146,15 @@ The `info.json` file contains the quick info you can see below your profile pict
 ```jsonc title="info.json"
 {
   "id": 1, // The ID. Has to be unique for Astro's content collections to work.
-  "icon": "cake", // The icon to display next to the text.
+  "icon": {
+    "type": "lucide", // The icon lib, either "lucide" or "simple-icons".
+    "name": "cake" // The name of the icon.
+  },
   "text": "1 year old" // The text to display.
 }
 ```
 
-The icons come from [Lucide](https://lucide.dev), so pick one you like and place it's name there!
+Spectre supports both [Lucide](https://lucide.dev) and [Simple Icons](https://simpleicons.org).
 
 ### Socials
 
@@ -160,7 +163,10 @@ The `socials.json` file is similar to the `info.json` file in terms of structure
 ```jsonc title="socials.json"
 {
   "id": 1, // The ID, has to be unique.
-  "icon": "github", // The icon to display next to the link.
+  "icon": {
+    "type": "lucide", // The icon lib, either "lucide" or "simple-icons".
+    "name": "github" // The name of the icon.
+  },
   "text": "GitHub", // The text in the link
   "link": "https://github.com/louisescher/spectre" // The actual destination of the link
 }
@@ -224,9 +230,11 @@ date: 12-29-2024 # Date of publication
 description: Spectre is a terminal-inspired theme for Astro, built using Astro and TypeScript. # Description of the project
 image: ../assets/spectre.png # The image to be used as the OG image, referenced with a relative path
 info: # A TOML-like list of information about the project
-  - icon: github # Icon for this info
-    text: GitHub # Text for this info
+  - text: GitHub # Text for this info
     link: https://github.com/louisescher/spectre # Optional if you want to link to somewhere
+    icon:
+      type: lucide # Icon library, either "lucide" or "simple-icons"
+      name: github # The name of the icon
 ---
 ```
 

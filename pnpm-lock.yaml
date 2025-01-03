@@ -10,25 +10,28 @@ importers:
     dependencies:
       '@astrojs/mdx':
         specifier: ^4.0.3
-        version: 4.0.3(astro@5.1.1(rollup@4.29.1)(typescript@5.7.2))
+        version: 4.0.3(astro@5.1.2(rollup@4.29.1)(typescript@5.7.2))
       '@astrojs/node':
         specifier: ^9.0.0
-        version: 9.0.0(astro@5.1.1(rollup@4.29.1)(typescript@5.7.2))
+        version: 9.0.0(astro@5.1.2(rollup@4.29.1)(typescript@5.7.2))
       '@astrojs/sitemap':
         specifier: ^3.2.1
         version: 3.2.1
       '@iconify-json/lucide':
         specifier: ^1.2.20
         version: 1.2.20
+      '@iconify-json/simple-icons':
+        specifier: ^1.2.18
+        version: 1.2.18
       '@iconify/utils':
         specifier: ^2.2.1
         version: 2.2.1
       astro:
-        specifier: ^5.1.1
-        version: 5.1.1(rollup@4.29.1)(typescript@5.7.2)
+        specifier: ^5.1.2
+        version: 5.1.2(rollup@4.29.1)(typescript@5.7.2)
       astro-expressive-code:
         specifier: ^0.38.3
-        version: 0.38.3(astro@5.1.1(rollup@4.29.1)(typescript@5.7.2))
+        version: 0.38.3(astro@5.1.2(rollup@4.29.1)(typescript@5.7.2))
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
@@ -459,6 +462,9 @@ packages:
   '@iconify-json/lucide@1.2.20':
     resolution: {integrity: sha512-m/8rqukvQfsE+MYTwNXCxP/K2iucTCGSQfS0XZhYpkZKGRdiEOdAAnd8Vv+E78xKK94Jza2eTc5ihxbw6+i7EQ==}
 
+  '@iconify-json/simple-icons@1.2.18':
+    resolution: {integrity: sha512-ae4ig7fxNXME1wl5og7Ocp82TM4jyz6IsOyI8GrteSbvHR9gaPu2Z01Amn5V/xo1Y7A7/+EH/3Ovpy2az/gYbg==}
+
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
@@ -834,8 +840,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro@5.1.1:
-    resolution: {integrity: sha512-prpWC2PRs4P3FKQg6gZaU+VNMqbZi5pDvORGB2nrjfRjkrvF6/l4BqhvkJ6YQ0Ohm5rIMVz8ljgaRI77mLHbwg==}
+  astro@5.1.2:
+    resolution: {integrity: sha512-+U5lXPEJZ6cQx0botGbPhzN6XGWRgDtXgy/RUkpTmUj18LW6pbzYo0O0k3hFWOazlI039bZ+4P2e/oSNlKzm0Q==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2130,12 +2136,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.0.3(astro@5.1.1(rollup@4.29.1)(typescript@5.7.2))':
+  '@astrojs/mdx@4.0.3(astro@5.1.2(rollup@4.29.1)(typescript@5.7.2))':
     dependencies:
       '@astrojs/markdown-remark': 6.0.1
       '@mdx-js/mdx': 3.1.0(acorn@8.14.0)
       acorn: 8.14.0
-      astro: 5.1.1(rollup@4.29.1)(typescript@5.7.2)
+      astro: 5.1.2(rollup@4.29.1)(typescript@5.7.2)
       es-module-lexer: 1.6.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.4
@@ -2149,9 +2155,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@9.0.0(astro@5.1.1(rollup@4.29.1)(typescript@5.7.2))':
+  '@astrojs/node@9.0.0(astro@5.1.2(rollup@4.29.1)(typescript@5.7.2))':
     dependencies:
-      astro: 5.1.1(rollup@4.29.1)(typescript@5.7.2)
+      astro: 5.1.2(rollup@4.29.1)(typescript@5.7.2)
       send: 1.1.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -2404,6 +2410,10 @@ snapshots:
       '@expressive-code/core': 0.38.3
 
   '@iconify-json/lucide@1.2.20':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/simple-icons@1.2.18':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -2729,12 +2739,12 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-expressive-code@0.38.3(astro@5.1.1(rollup@4.29.1)(typescript@5.7.2)):
+  astro-expressive-code@0.38.3(astro@5.1.2(rollup@4.29.1)(typescript@5.7.2)):
     dependencies:
-      astro: 5.1.1(rollup@4.29.1)(typescript@5.7.2)
+      astro: 5.1.2(rollup@4.29.1)(typescript@5.7.2)
       rehype-expressive-code: 0.38.3
 
-  astro@5.1.1(rollup@4.29.1)(typescript@5.7.2):
+  astro@5.1.2(rollup@4.29.1)(typescript@5.7.2):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.2
