@@ -248,6 +248,20 @@ Spectre uses the [`node`](https://docs.astro.build/en/guides/integrations-guide/
 - [`@astrojs/netlify`](https://docs.astro.build/en/guides/integrations-guide/netlify/)
 - [`@astrojs/vercel`](https://docs.astro.build/en/guides/integrations-guide/vercel/)
 
+When deploying to GitHub Pages make sure to remove the adapter from the `astro.config.ts` file:
+
+```ts del={4-6} title="astro.config.ts"
+// https://astro.build/config
+export default defineConfig({
+  // ...
+  adapter: node({
+    mode: 'standalone'
+  })
+});
+```
+
+After doing so, you can follow the [official guide](https://docs.astro.build/en/guides/deploy/github/) to deploy your site!
+
 ## Modifying the theme
 
 As with all themes, you might wish to modify it. In terms of content, you should know where you can do that! If you want to modify the primary color for example, you can do so in the `src/styles/globals.css` file:
