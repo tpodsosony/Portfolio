@@ -248,7 +248,7 @@ Spectre uses the [`node`](https://docs.astro.build/en/guides/integrations-guide/
 - [`@astrojs/netlify`](https://docs.astro.build/en/guides/integrations-guide/netlify/)
 - [`@astrojs/vercel`](https://docs.astro.build/en/guides/integrations-guide/vercel/)
 
-When deploying to GitHub Pages make sure to remove the adapter from the `astro.config.ts` file:
+When deploying to GitHub Pages, make sure to remove the adapter from the `astro.config.ts` file altogether:
 
 ```ts del={4-6} title="astro.config.ts"
 // ...
@@ -260,7 +260,7 @@ export default defineConfig({
 });
 ```
 
-After doing so, you can follow the [official guide](https://docs.astro.build/en/guides/deploy/github/) to deploy your site!
+After doing so, you can follow the [official guide](https://docs.astro.build/en/guides/deploy/github/) to deploy your site.
 
 ## Modifying the theme
 
