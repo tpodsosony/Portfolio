@@ -7,12 +7,36 @@ import spectre from './package/src';
 
 import node from '@astrojs/node';
 
+import githubDark from '@shikijs/themes/github-dark';
+
+const customGithubDark = {
+  ...githubDark,
+  name: 'My Custom Github Dark',
+  tokenColors: [
+    {
+      scope: 'comment',
+      settings: {
+        foreground: '#6a9955',
+        fontStyle: 'italic',
+      },
+    },
+    {
+      scope: 'keyword',
+      settings: {
+        foreground: '#ff7b72',
+      },
+    },
+  ],
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://spectre.louisescher.dev',
   output: 'static',
   integrations: [
-    expressiveCode(),
+    expressiveCode({
+      themes: [customGithubDark],
+    }),
     mdx(),
     sitemap(),
     spectre({
