@@ -285,3 +285,23 @@ As with all themes, you might wish to modify it. In terms of content, you should
 | `--primary-rgb` | RGB version of the primary color. | `140, 92, 245` |
 | `--primary-light` | Used for links. | `#a277ff` |
 | `--primary-lightest` | Used for links. | `#c2a8fd` |
+
+### Modifying Expressive Code theme
+
+Code snippets declared in `.mdx` files are powered by [Expressive Code](https://expressive-code.com). If you want to change the theme of the code snippets (syntax highlighting, background color) you can provide your desired theme in the `astro.config.ts` file as such:
+
+```ts ins={6-8} del={5} title="astro.config.ts"
+// ...
+export default defineConfig({
+  // ...
+  integrations: [
+    expressiveCode(),
+    expressiveCode({
+      themes: ['catppuccin-mocha'],
+    }),
+    // ... 
+  ],
+  // ...
+});
+```
+You can find the list of available themes here: [Expressive Code themes](https://expressive-code.com/guides/themes/).
