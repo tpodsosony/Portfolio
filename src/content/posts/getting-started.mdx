@@ -288,15 +288,18 @@ As with all themes, you might wish to modify it. In terms of content, you should
 
 ### Changing the code block colors
 
-Code snippets declared in `.mdx` files are powered by [Expressive Code](https://expressive-code.com). If you want to change the theme of the code snippets (syntax highlighting, background color) you can provide your desired theme in the `astro.config.ts` file as such:
+Code snippets declared in `.mdx` files are powered by [Expressive Code](https://expressive-code.com). By default, Spectre uses a variation of GitHub's dark theme with custom background colors. 
 
-```ts ins={6-8} del={5} title="astro.config.ts"
+If you want to change the colors of the code snippets (syntax highlighting, background color, etc.) you can provide your desired theme in the `astro.config.ts` file as such:
+
+```ts ins={7} del={1,6} title="astro.config.ts"
+import { spectreDark } from './src/ec-theme';
 // ...
 export default defineConfig({
   // ...
   integrations: [
-    expressiveCode(),
     expressiveCode({
+      themes: [spectreDark],
       themes: ['catppuccin-mocha'],
     }),
     // ... 
@@ -304,4 +307,4 @@ export default defineConfig({
   // ...
 });
 ```
-You can find the list of available themes here: [Expressive Code themes](https://expressive-code.com/guides/themes/).
+You can find a list of available themes [on Expressive Code's website](https://expressive-code.com/guides/themes/).
