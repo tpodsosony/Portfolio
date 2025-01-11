@@ -6,13 +6,16 @@ import sitemap from '@astrojs/sitemap';
 import spectre from './package/src';
 
 import node from '@astrojs/node';
+import { spectreDark } from './src/ec-theme';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://spectre.louisescher.dev',
   output: 'static',
   integrations: [
-    expressiveCode(),
+    expressiveCode({
+      themes: [spectreDark],
+    }),
     mdx(),
     sitemap(),
     spectre({
