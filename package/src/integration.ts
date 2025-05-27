@@ -118,8 +118,8 @@ export const optionsSchema = z.object({
 });
 
 export default function integration(options: z.infer<typeof optionsSchema>): AstroIntegration {
-  const likelyUntouchedConfig = Object.keys(options.giscus!).every((key) => {
-    const item = options.giscus![key as keyof typeof options.giscus];
+  const likelyUntouchedConfig = options.giscus && Object.keys(options.giscus).every((key) => {
+    const item = options.giscus[key as keyof typeof options.giscus];
 
     return typeof item === "undefined" || item === false;
   });
