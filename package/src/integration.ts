@@ -118,6 +118,16 @@ export const optionsSchema = z.object({
 });
 
 export default function integration(options: z.infer<typeof optionsSchema>): AstroIntegration {
+  const likelyUntouchedConfig = Object.keys(options.giscus!).every((key) => {
+    const item = options.giscus![key as keyof typeof options.giscus];
+
+    return typeof item === "undefined" || item === false;
+  });
+
+  if (options.giscus && likelyUntouchedConfig) {
+    throw new Error("\n\nERROR: It seems you have not updated the preset Giscus configuration for comments! Please change the settings in your astro.config.mjs by adding a .env with the required variables, adding the strings right in your configuration or removing the `giscus` option altogether.\n\n");
+  }
+
   const validatedOptions = optionsSchema.parse(options);
 
 	const globals = viteVirtualModulePluginBuilder('spectre:globals', 'spectre-theme-globals', `
