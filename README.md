@@ -35,7 +35,7 @@ yarn create astro --template louisescher/spectre
 
 ## Curious?
 
-Head over to [the preview page](https://spectre.louisescher.dev) to find out more!
+Head over to [the preview page](https://spectre.lou.gg) to find out more!
 
 ### Spectre Integration
 
