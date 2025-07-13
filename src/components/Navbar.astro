@@ -89,7 +89,7 @@ const path = Astro.url.pathname;
   });
   
   searchElement?.addEventListener('blur', () => {
-    handleTabletChange()
+    handleTabletChange();
     setTimeout(() => {
       if (!document.activeElement?.closest('#search-results')) {
         results.classList.remove('active');
