@@ -17,5 +17,15 @@
     },
     "text": "LinkedIn",
     "link": "https://www.linkedin.com/in/talpodsosony/"
+  },
+
+  {
+    "id": 3,
+    "icon": {
+      "type": "lucide",
+      "name": "fish"
+    },
+    "text": "My fun website",
+    "link": "https://midnight-tides.vercel.app/"
   }
 ]
