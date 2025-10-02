@@ -6,6 +6,16 @@
       "name": "github"
     },
     "text": "GitHub",
-    "link": "https://github.com/louisescher/spectre"
+    "link": "https://github.com/tpodsosony"
+  },
+
+  {
+    "id": 2,
+    "icon": {
+      "type": "lucide",
+      "name": "linkedin"
+    },
+    "text": "LinkedIn",
+    "link": "https://www.linkedin.com/in/talpodsosony/"
   }
 ]

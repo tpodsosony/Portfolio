@@ -1,9 +1,17 @@
 [
   {
     "id": 1,
-    "duration": "2024 - present",
-    "company": "Astro Community",
-    "title": "Astro Theme",
-    "description": "Existing as an Astro theme for anyone to use."
+    "duration": "2025 - present",
+    "company": "Nimble Information Strategies",
+    "title": "Data Entry Clerk",
+    "description": "Indexing files"
+  },
+
+  {
+    "id": 2,
+    "duration": "2024 Summer internship",
+    "company": "ACE Project Space",
+    "title": "Full stack Web Developer",
+    "description": "Created and integrated a database using Laravel that was used in a review system"
   }
 ]
