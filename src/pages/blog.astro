@@ -8,7 +8,7 @@ import Layout from "../layouts/Layout.astro";
 import { openGraph } from 'spectre:globals';
 
 const posts = await getCollection('posts', (post) => post.data.draft !== true);
-const tags = posts.flatMap((post) => post.data.tags.map((tag) => tag.id));
+const workExperience = await getCollection('workExperience')
 ---
 <Layout
   title={openGraph.blog.title || "Blog"}
@@ -17,19 +17,45 @@ const tags = posts.flatMap((post) => post.data.tags.map((tag) => tag.id));
 >
   <div class="layout-grid-left" slot="left">
     <Card class="flex-col-card">
-      <h2 class="no-mt">Filter</h2>
-      <ul class="tags-list">
-        {Array.from(new Set(tags)).map((tag) => (
-          <li>
-            <a
-              class="blog-tag"
-              href="/blog"
-              data-tag={tag}
-            >
-              {tag}
-            </a>
-          </li>
-        ))}
+      <h2 class="no-mt">Contact me</h2>
+      <ul class ="overview-list">
+         <!-- Form action API Endpoint  -->
+        <form action="https://api.web3forms.com/submit" method="POST" id="form">
+
+        <input type="hidden" name="access_key" value="d4997bf7-005e-49be-966d-9d2d80433397">
+
+        <input type="hidden" name="subject" value="New message from Tal's Portfolio">
+
+        <input type="hidden" name="from_name" value="Tal's Portfolio"> 
+
+         <li>
+          <Icon type='lucide' name="circle-user" width={24} height={24} class='glow-icon' /> 
+        <input type="text" name="name" placeholder="Name" required>
+         </li>
+        <li>
+          <Icon type='lucide' name="mail" width={24} height={24} class='glow-icon' />
+        <input type="email" name="email" placeholder="Email" required>
+        </li>
+        
+        <li>
+          <Icon type='lucide' name="pen" width={24} height={24} class='glow-icon' />
+          <textarea name="message" placeholder="Message" required></textarea>
+        </li>
+        <li>
+          <div class="h-captcha" data-captcha="true"></div>
+
+        </li>
+        <li>
+          <Icon type='lucide' name="check" width={24} height={24} class='glow-icon' />
+          <button type="submit">Send message</button>
+        </li>
+
+
+        
+
+        </form>
+        <script src="https://web3forms.com/client/script.js" async defer></script>
+
       </ul>
     </Card>
   </div>
@@ -51,7 +77,24 @@ const tags = posts.flatMap((post) => post.data.tags.map((tag) => tag.id));
 				))}
 			</div>
 		</Card>
+    <Card>
+			<div class="header-container">
+				<Icon type='lucide' name="briefcase-business" width={24} height={24} class='glow-icon' />
+				<h2>Work Experience</h2>
+			</div>
+			<div class="work-experience-container">
+				{workExperience.map((entry) => (
+					<div class="work-experience-entry">
+						<span class="work-experience-duration">{entry.data.duration}</span>
+						<h3 class="work-experience-company">{entry.data.company}</h3>
+						<span class="work-experience-role">{entry.data.title}</span>
+						<p class="work-experience-desc">{entry.data.description}</p>
+					</div>
+				))}
+			</div>
+		</Card>
   </div>
+  
 </Layout>
 <script>
   const tags = document.querySelectorAll<HTMLAnchorElement>('.blog-tag');

@@ -19,28 +19,28 @@
     "duration": "2024 Summer internship",
     "company": "ACE Project Space",
     "title": "Full stack Web Developer",
-    "description": "Created and integrated a database using Laravel that was used in a review system"
+    "description": "Created and integrated a database within a Laravel project that was used in a review system"
   },
   {
     "id": 4,
     "duration": "July 2023 - Feb 2024",
     "company": "Manitoba Sports Hall of Fame and Museum",
     "title": "Collections Manager",
-    "description": "Updated and processed artifacts"
+    "description": "Organized and processed artifacts"
   },
   {
     "id": 5,
     "duration": "Sept 2022 - Dec 2022",
     "company": "IntegrateIT",
     "title": "E-Commerce Advisor (Internship)",
-    "description": "Updated and processed artifacts"
+    "description": "Improved 10 clients’ online presences, with a focus on their SEO, SEM, and social media accounts; to deliver to them and discuss the findings to determine any potential improvements that could be made"
   },
   {
     "id": 6,
     "duration": "Aug 2021 - Oct 2023",
     "company": "Brightwater Senior Living",
     "title": "Dishwasher",
-    "description": "Updated and processed artifacts"
+    "description": "Assisted in the daily cleaning and sanitising of kitchen equipment, surfaces, and storage areas to maintain a safe and hygienic work environment"
   }
 
 ]
