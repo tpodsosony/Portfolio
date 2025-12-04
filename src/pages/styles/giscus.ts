@@ -1,6 +1,6 @@
 export const prerender = false;
 
-import css from '../../styles/giscus.css?raw';
+import css from '../../styles/giscus.css';
 
 export async function ALL() {
   const res = new Response(css);
