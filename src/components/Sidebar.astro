@@ -1,0 +1,89 @@
+---
+import '../styles/index.css';
+
+import ProfilePicture from '../assets/pfp.jpg';
+
+import Card from '../components/Card.astro';
+import ImageGlow from '../components/ImageGlow.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { render } from 'astro:content';
+import { name, openGraph } from 'spectre:globals';
+
+const [posts, projects, about, workExperience, quickInfo, socials] = await Promise.all([
+	getCollection('posts', (post) => post.data.draft !== true),
+	getCollection('projects'),
+	getEntry('other', 'about'),
+	getCollection('workExperience'),
+	getCollection('quickInfo'),
+	getCollection('socials')
+]);
+
+// biome-ignore lint/style/noNonNullAssertion: Should always be defined.
+const { Content: About } = await render(about!);
+---
+
+<Card class="flex-col-card">
+			<ImageGlow quality={100} width={120} height={120} src={ProfilePicture} alt="A spiral" loading='eager' />
+			<h2>{name}</h2>
+			<ul class="overview-list">
+				{quickInfo.map((info) => (
+					<li>
+						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
+						<span>{info.data.text}</span>
+					</li>
+				))}
+			</ul>
+		</Card>
+		<Card>
+			<h3 class="no-mt">Socials</h3>
+			<ul class="overview-list">
+				{socials.map((item) => (
+					<li>
+						<a href={item.data.link} class="socials-link">
+							<Icon type={item.data.icon.type} name={item.data.icon.name as any} width={24} height={24} class='glow-icon' />
+							<span>{item.data.text}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</Card>
+		<Card class="flex-col-card">
+    <h2 class="no-mt">Contact me</h2>
+    <ul class ="overview-list">
+       <!-- Form action API Endpoint  -->
+      <form action="https://api.web3forms.com/submit" method="POST" id="form">
+
+      <input type="hidden" name="access_key" value="d4997bf7-005e-49be-966d-9d2d80433397">
+
+      <input type="hidden" name="subject" value="New message from Tal's Portfolio">
+
+      <input type="hidden" name="from_name" value="Tal's Portfolio"> 
+
+       <li>
+        <Icon type='lucide' name="circle-user" width={24} height={24} class='glow-icon' /> 
+      <input type="text" name="name" placeholder="Name" required>
+       </li>
+      <li>
+        <Icon type='lucide' name="mail" width={24} height={24} class='glow-icon' />
+      <input type="email" name="email" placeholder="Email" required>
+      </li>
+      
+      <li>
+        <Icon type='lucide' name="pen" width={24} height={24} class='glow-icon' />
+        <textarea name="message" placeholder="Message" required></textarea>
+      </li>
+      <li>
+        <div class="h-captcha" data-captcha="true"></div>
+
+      </li>
+      <li>
+        <Icon type='lucide' name="check" width={24} height={24} class='glow-icon' />
+        <button type="submit">Send message</button>
+      </li>
+      </form>
+      <script src="https://web3forms.com/client/script.js" async defer></script>
+
+    </ul>
+  </Card>

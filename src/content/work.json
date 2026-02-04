@@ -6,37 +6,45 @@
     "title": "Data Entry Clerk",
     "description": "Indexing files"
   },
-
+  
   {
     "id": 2,
+    "duration": "Sept 2024 - Aug 2025",
+    "company": "IntouchCX",
+    "title": "Technical Support Advisor",
+    "description": "Delivered first-line technical support for customers experiencing issues with hardware (smartphones, tablets, smartwatches, computers, laptops), operating systems, web applications, and software installations."
+  },
+
+  {
+    "id": 3,
     "duration": "2024 Fall internship",
     "company": "PlaceSpeak",
     "title": "Email Marketing Specialist",
-    "description": "Executed a targeted campaign to grow PlaceSpeak’s customer base across Canada. Focused on regions with existing ‘anchor tenants’, leveraging the unique differentiation of the civic network"
+    "description": "Executed a targeted campaign to grow PlaceSpeak’s customer base across Canada. Focused on regions with existing ‘anchor tenants’, leveraging the unique differentiation of the civic network."
   },
   {
-    "id": 3,
+    "id": 4,
     "duration": "2024 Summer internship",
     "company": "ACE Project Space",
     "title": "Full stack Web Developer",
     "description": "Created and integrated a database within a Laravel project that was used in a review system"
   },
   {
-    "id": 4,
-    "duration": "July 2023 - Feb 2024",
+    "id": 5,
+    "duration": "Jan 2023 - Feb 2024",
     "company": "Manitoba Sports Hall of Fame and Museum",
     "title": "Collections Manager",
     "description": "Organized and processed artifacts"
   },
   {
-    "id": 5,
+    "id": 6,
     "duration": "Sept 2022 - Dec 2022",
     "company": "IntegrateIT",
     "title": "E-Commerce Advisor (Internship)",
-    "description": "Improved 10 clients’ online presences, with a focus on their SEO, SEM, and social media accounts; to deliver to them and discuss the findings to determine any potential improvements that could be made"
+    "description": "Improved clients’ online presences, with a focus on their SEO, SEM, and social media accounts. Delivered findings to determine any potential improvements that could be made"
   },
   {
-    "id": 6,
+    "id": 7,
     "duration": "Aug 2021 - Oct 2023",
     "company": "Brightwater Senior Living",
     "title": "Dishwasher",

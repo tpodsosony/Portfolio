@@ -24,11 +24,11 @@ const config = defineConfig({
       name: 'Tal Podsosony',
       openGraph: {
         home: {
-          title: 'Spectre',
+          title: 'Tal Podsosony',
           description: 'A display of the work of Tal Podsosony'
         },
         blog: {
-          title: 'Blog',
+          title: 'Work',
           description: 'News and guides for Spectre.'
         },
         projects: {

@@ -1,8 +1,7 @@
 ---
 import '../styles/index.css';
 
-import ProfilePicture from '../assets/pfp.jpg';
-
+import Sidebar from '../components/Sidebar.astro';
 import Card from '../components/Card.astro';
 import Layout from '../layouts/Layout.astro';
 import ImageGlow from '../components/ImageGlow.astro';
@@ -31,31 +30,8 @@ const { Content: About } = await render(about!);
 	pagefindIgnore
 >
 	<div class="layout-grid-left" slot="left">
-		<Card class="flex-col-card">
-			<ImageGlow quality={100} width={120} height={120} src={ProfilePicture} alt="A spiral" loading='eager' />
-			<h2>{name}</h2>
-			<ul class="overview-list">
-				{quickInfo.map((info) => (
-					<li>
-						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
-						<span>{info.data.text}</span>
-					</li>
-				))}
-			</ul>
-		</Card>
-		<Card>
-			<h3 class="no-mt">Socials</h3>
-			<ul class="overview-list">
-				{socials.map((item) => (
-					<li>
-						<a href={item.data.link} class="socials-link">
-							<Icon type={item.data.icon.type} name={item.data.icon.name as any} width={24} height={24} class='glow-icon' />
-							<span>{item.data.text}</span>
-						</a>
-					</li>
-				))}
-			</ul>
-		</Card>
+	<Sidebar/>
+		
 	</div>
 	<div class="layout-grid-right" slot="right">
 		<Card>
@@ -81,23 +57,6 @@ const { Content: About } = await render(about!);
 							<span class="post-date">{project.data.date.toLocaleDateString()}</span>
 						</div>
 						<span>{project.data.description}</span>
-					</a>
-				))}
-			</div>
-		</Card>
-		<Card>
-			<div class="header-container">
-				<Icon type='lucide' name="rss" width={24} height={24} class='glow-icon' />
-				<h2>Latest Posts</h2>
-			</div>
-			<div class="content-container">
-				{posts.sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime()).slice(0, 2).map((post) => (
-					<a href={`/blog/${post.id}`} class="post-container">
-						<div class="post-header">
-							<h3>{post.data.title}</h3>
-							<span class="post-date">{post.data.createdAt.toLocaleDateString()}</span>
-						</div>
-						<span>{post.data.description}</span>
 					</a>
 				))}
 			</div>

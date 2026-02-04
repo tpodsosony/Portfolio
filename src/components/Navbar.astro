@@ -8,154 +8,19 @@ const path = Astro.url.pathname;
   <a class="site-title" href="/">{name}</a>
   <ul>
     <li>
-      <a href="/blog" class:list={{ active: path.startsWith('/blog') }}>Resume</a>
+      <a href="/work" class:list={{ active: path.startsWith('/work') }}>Work Experience</a>
     </li>
     <li class="nav-separator">/</li>
     <li>
       <a href="/projects" class:list={{ active: path.startsWith('/projects') }}>Projects</a>
     </li>
-    <!-- <li class="nav-separator">/</li>
-    <li>
-      <input id="search" type="text" placeholder="Search (Ctrl+K)" />
-      <div id="search-results"></div>
-    </li> -->
   </ul>
   <button class="mobile-nav-toggle" aria-label="Mobile menu trigger">
     <Icon type="lucide" name="menu" width={24} height={24} class="menu-closed" />
     <Icon type="lucide" name="x" width={24} height={24} class="menu-open" />
   </button>
 </nav>
-<script is:inline>
-  const searchElement = document.querySelector('#search');
-  const results = document.querySelector('#search-results');
-  const navToggle = document.querySelector('.mobile-nav-toggle');
 
-  let focusIndex = -1;
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'k' && e.ctrlKey) {
-      searchElement.focus();
-    }
-
-    if (e.key === 'Escape') {
-      searchElement.blur();
-      results.classList.remove('active');
-      focusIndex = -1;
-    }
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-
-      focusIndex++;
-      const results = document.querySelectorAll('#search-results a');
-
-      if (focusIndex >= results.length) {
-        focusIndex = 0;
-      }
-
-      results[focusIndex]?.focus();
-    }
-
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-
-      focusIndex--;
-      const results = document.querySelectorAll('#search-results a');
-
-      if (focusIndex < 0) {
-        focusIndex = results.length - 1;
-      }
-
-      results[focusIndex]?.focus();
-    }
-  });
-
-  let pagefindInitialized = false;
-
-  searchElement?.addEventListener('focus', async () => {
-    searchElement.placeholder = '';
-    results.classList.add('active');
-    
-    // initialize pagefind on first focus
-    if (!pagefindInitialized) {
-      try {
-        window.pagefind = await import("/pagefind/pagefind.js");
-        await window.pagefind.init();
-        pagefindInitialized = true;
-      } catch (error) {
-        console.error('Failed to initialize Pagefind:', error);
-      }
-    }
-  });
-  
-  searchElement?.addEventListener('blur', () => {
-    handleTabletChange();
-    setTimeout(() => {
-      if (!document.activeElement?.closest('#search-results')) {
-        results.classList.remove('active');
-        focusIndex = -1;
-      }
-    }, 1);
-  });
-
-  results?.addEventListener('focusout', (e) => {
-    if (!e.relatedTarget?.closest('#search-results')) {
-      results.classList.remove('active');
-      focusIndex = -1;
-    }
-  });
-
-  searchElement?.addEventListener('input', async (e) => {
-    // only search if Pagefind is ready
-    if (!pagefindInitialized) {
-      return;
-    }
-
-    results.innerHTML = '';
-    let searchResultHtml = '';
-
-    const search = await window.pagefind.search(e.target.value);
-
-    let i = 0;
-    for (const result of search.results) {
-      i++;
-
-      const data = await result.data();
-      
-      searchResultHtml += `
-        <a href="${data.url}">
-          <h3 class="no-mt">${data.meta.title}</h3>
-          <p>${data.excerpt}</p>
-        </a>
-        ${i < search.results.length ? '<hr class="separator">' : ''}
-      `;
-    }
-
-    if (search.results.length === 0 && e.target.value.length > 0) {
-      results.innerHTML = '<p style="margin-top: 0;">No results found</p>';
-    } else {
-      results.innerHTML = searchResultHtml;
-    }
-
-    results.classList.add('active');
-  });
-
-  navToggle?.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    document.querySelector('nav').classList.toggle('active');
-  });
-
-  const handleTabletChange = () => {
-    if (window.matchMedia('(max-width: 640px)').matches) {
-      searchElement.placeholder = 'Search';
-    } else {
-      searchElement.placeholder = 'Search (Ctrl+K)';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', handleTabletChange);
-  document.addEventListener('resize', handleTabletChange);
-</script>
 <style>
   nav {
     display: flex;
