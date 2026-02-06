@@ -12,7 +12,7 @@ import { spectreDark } from './src/ec-theme';
 
 // https://astro.build/config
 const config = defineConfig({
-  site: 'https://talpodsosony.netlify.app',
+  site: 'https://talpodsosony.vercel.app',
   output: 'static',
   integrations: [
     expressiveCode({
