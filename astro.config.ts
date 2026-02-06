@@ -1,5 +1,5 @@
-import { loadEnv } from "vite";
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 
 import expressiveCode from 'astro-expressive-code';
 import mdx from '@astrojs/mdx';
@@ -38,9 +38,7 @@ const config = defineConfig({
       
     })
   ],
-  adapter: node({
-    mode: 'standalone'
-  })
+  adapter: vercel(),
 });
 
 export default config;
