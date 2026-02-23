@@ -5,20 +5,23 @@
     "company": "Nimble Information Strategies",
     "title": "Data Entry Clerk",
     "description": "Indexing files",
-    "points": ["Maintained large volumes of data in internal databases and spreadsheets while meeting tight deadlines.", 
+    "points": [
+      "Maintained large volumes of data in internal databases and spreadsheets while meeting tight deadlines.",
       "Verified data for accuracy and completeness, identifying and correcting errors to ensure high data integrity.",
       "Organized digital and physical records, improving accessibility and administrative operations."
-] 
+    ]
   },
-  
+
   {
     "id": 2,
     "duration": "June 2025 - Aug 2025",
     "company": "IntouchCX",
     "title": "Technical Support Advisor",
     "description": "Delivered first-line technical support for customers experiencing issues with hardware (smartphones, tablets, smartwatches, computers, laptops), operating systems, web applications, and software installations.",
-    "points": ["Delivered first-line technical support for customers experiencing issues with hardware (smartphones, tablets, smartwatches, computers, laptops), operating systems, web applications, and software installations.", 
-      "Diagnosed and resolved complex technical issues using analytical problem-solving, ensuring clear explanations for customers."] 
+    "points": [
+      "Delivered first-line technical support for customers experiencing issues with hardware (smartphones, tablets, smartwatches, computers, laptops), operating systems, web applications, and software installations.",
+      "Diagnosed and resolved complex technical issues using analytical problem-solving, ensuring clear explanations for customers."
+    ]
   },
 
   {
@@ -27,27 +30,34 @@
     "company": "PlaceSpeak",
     "title": "Email Marketing Specialist",
     "description": "Executed a targeted campaign to grow PlaceSpeak’s customer base across Canada.",
-    "points": ["Executed a targeted campaign to grow PlaceSpeak’s customer base across Canada.", "Focused on regions with existing ‘anchor tenants’, leveraging the unique differentiation of the civic network."] 
+    "points": [
+      "Executed a targeted campaign to grow PlaceSpeak’s customer base across Canada.",
+      "Focused on regions with existing ‘anchor tenants’, leveraging the unique differentiation of the civic network."
+    ]
   },
   {
     "id": 4,
     "duration": "2024 Summer internship",
     "company": "ACE Project Space",
-    "title": "Full stack Web Developer",
+    "title": "Full Stack Web Developer",
     "description": "Created and integrated a database within a Laravel project that was used in a review system",
-    "points": ["Designed and implemented a database schema for a review system using Laravel and Eloquent ORM, including an admin-facing prototype for managing reviews.", 
+    "points": [
+      "Designed and implemented a database schema for a review system using Laravel and Eloquent ORM, including an admin-facing prototype for managing reviews.",
       "Collaborated in Agile sprint cycles using a backlog system, participating in daily scrums to track tasks, progress, and deadlines.",
-      "Documented development work and wrote troubleshooting guides to support maintainability and future development."] 
+      "Documented development work and wrote troubleshooting guides to support maintainability and future development."
+    ]
   },
   {
     "id": 5,
-    "duration": "Jan 2023 - Feb 2024",
+    "duration": "May 2023 - Feb 2024",
     "company": "Manitoba Sports Hall of Fame and Museum",
     "title": "Database Manager",
     "description": "Organized and processed artifacts",
-    "points": ["Updated, processed, and maintained museum database records, contributing over 300 accurate artifact entries.",
+    "points": [
+      "Updated, processed, and maintained museum database records, contributing over 300 accurate artifact entries.",
       "Prioritized and tracked incoming artifacts based on storage requirements and location assignments.",
-      "Reorganized archival storage to optimize space utilization and conducted research to author detailed artifact descriptions."] 
+      "Reorganized archival storage to optimize space utilization and conducted research to author detailed artifact descriptions."
+    ]
   },
   {
     "id": 6,
@@ -55,8 +65,9 @@
     "company": "IntegrateIT",
     "title": "E-Commerce Advisor (Internship)",
     "description": "Delivered findings to determine any potential improvements that could be made",
-    "points": ["Improved clients’ online presences, with a focus on their SEO, SEM, and social media accounts.",
-      "Delivered and discussed finding to guide customers in their use of the grant provided."] 
+    "points": [
+      "Improved clients’ online presences, with a focus on their SEO, SEM, and social media accounts.",
+      "Delivered and discussed finding to guide customers in their use of the grant provided."
+    ]
   }
-
 ]
