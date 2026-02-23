@@ -64,15 +64,17 @@ const { Content: About } = await render(about!);
 		<Card>
 			<div class="header-container">
 				<Icon type='lucide' name="briefcase-business" width={24} height={24} class='glow-icon' />
-				<h2>Work Experience</h2>
+				<h1>Work Experience</h1>
 			</div>
 			<div class="work-experience-container">
 				{workExperience.map((entry) => (
 					<div class="work-experience-entry">
 						<span class="work-experience-duration">{entry.data.duration}</span>
-						<h3 class="work-experience-company">{entry.data.company}</h3>
-						<span class="work-experience-role">{entry.data.title}</span>
-						<p class="work-experience-desc">{entry.data.description}</p>
+						<h2 class="work-experience-role">{entry.data.title}</h2>
+						<h3 class="work-experience-company">{entry.data.company}<h3/>
+						<!-- <p class="work-experience-desc">{entry.data.description}</p> -->
+						{entry.data.points.map((point) => (<li><p class ="work-experience-desc">{point}</p></li>))}
+						
 					</div>
 				))}
 			</div>

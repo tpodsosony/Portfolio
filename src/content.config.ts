@@ -44,6 +44,7 @@ const workExperience = defineCollection({
     company: z.string(),
     duration: z.string(),
     description: z.string(),
+    points: z.string().array()
   })
 });
 
