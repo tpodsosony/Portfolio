@@ -1,5 +1,7 @@
 [
   {
-    "id": "guide"
+    "id": "1",
+    "name": "Ruby",
+    "color": "Red"
   }
 ]

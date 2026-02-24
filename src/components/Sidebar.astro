@@ -1,5 +1,5 @@
 ---
-import '../styles/index.css';
+import '../styles/article.css';
 
 import ProfilePicture from '../assets/pfp.jpg';
 
@@ -24,36 +24,48 @@ const [posts, projects, about, workExperience, quickInfo, socials] = await Promi
 const { Content: About } = await render(about!);
 ---
 
-<Card class="flex-col-card">
-			<ImageGlow quality={100} width={120} height={120} src={ProfilePicture} alt="A spiral" loading='eager' />
-			<h2>{name}</h2>
-			<ul class="overview-list">
-				{quickInfo.map((info) => (
-					<li>
-						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
-						<span>{info.data.text}</span>
-					</li>
-				))}
-			</ul>
-		</Card>
-		<Card>
-			<h3 class="no-mt">Socials</h3>
-			<ul class="overview-list">
-				{socials.map((item) => (
-					<li>
-						<a href={item.data.link} class="socials-link">
-							<Icon type={item.data.icon.type} name={item.data.icon.name as any} width={24} height={24} class='glow-icon' />
-							<span>{item.data.text}</span>
-						</a>
-					</li>
-				))}
-			</ul>
-		</Card>
-		<Card class="flex-col-card">
-    <h2 class="no-mt">Contact me</h2>
-    <ul class ="overview-list">
+<div class = "left">      
+    <Card class="toc-card">
+    			<ImageGlow quality={100} width={120} height={120} src={ProfilePicture} alt="A picture of Tal" loading='eager' />
+    			<h2>{name}</h2>
+    			<ul class="overview-list">
+    				{quickInfo.map((info) => (
+    					<li>
+    						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
+    						<span>{info.data.text}</span>
+    					</li>
+    				))}
+    			</ul>
+       <br/>
+    <!-- </Card>
+    <Card> -->
+    			<h3 class="no-mt">Socials</h3>
+    			<ul class="overview-list">
+    				{socials.map((item) => (
+    					<li>
+    						<a href={item.data.link} class="socials-link">
+    							<Icon type={item.data.icon.type} name={item.data.icon.name as any} width={24} height={24} class='glow-icon' />
+    							<span>{item.data.text}</span>
+    						</a>
+    					</li>
+    				))}
+    			</ul>
+    </Card>
+</div>
+
+<style>
+    
+    .toc-card{
+        position: sticky;
+        top: 2rem;
+        min-width: 0;
+    }
+</style>
+		<!-- <Card class="flex-col-card"> -->
+    <!-- <h2 class="no-mt">Contact me</h2>
+    <ul class ="overview-list"> -->
        <!-- Form action API Endpoint  -->
-      <form action="https://api.web3forms.com/submit" method="POST" id="form">
+      <!-- <form action="https://api.web3forms.com/submit" method="POST" id="form">
 
       <input type="hidden" name="access_key" value="d4997bf7-005e-49be-966d-9d2d80433397">
 
@@ -83,7 +95,7 @@ const { Content: About } = await render(about!);
         <button type="submit">Send message</button>
       </li>
       </form>
-      <script src="https://web3forms.com/client/script.js" async defer></script>
+      <script src="https://web3forms.com/client/script.js" async defer></script> -->
 
-    </ul>
-  </Card>
+    <!-- </ul>
+  </Card> -->

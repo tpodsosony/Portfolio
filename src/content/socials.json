@@ -3,6 +3,15 @@
     "id": 1,
     "icon": {
       "type": "lucide",
+      "name": "mail"
+    },
+    "text": "Email",
+    "link": "mailto:talpodsosony@gmail.com"
+  },
+  {
+    "id": 2,
+    "icon": {
+      "type": "lucide",
       "name": "github"
     },
     "text": "GitHub",
@@ -10,7 +19,7 @@
   },
 
   {
-    "id": 2,
+    "id": 3,
     "icon": {
       "type": "lucide",
       "name": "linkedin"
@@ -20,7 +29,7 @@
   },
 
   {
-    "id": 3,
+    "id": 4,
     "icon": {
       "type": "lucide",
       "name": "fish"

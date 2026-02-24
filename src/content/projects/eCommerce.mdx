@@ -2,7 +2,6 @@
 title: E-Commerce Website
 date: 10-06-2025
 description: A Ruby on Rails E-Commerce website with Stripe integration
-image: ../assets/spectre.png
 info:
   - text: GitHub
     link: https://github.com/tpodsosony/ecommerceProject
@@ -11,28 +10,28 @@ info:
       name: github
 ---
 
+# Project Purpose
+
 In a full stack development course in college, I had made a fully functional eCommerce website using Ruby on Rails.
-While you may say, "Tal, this website is really ugly!", I'd say your wrong and cry later so please don't say that. 
+The purpose of this was to develop a website containing a CMS using Rails gems. Developed entirely by me, the featured website focused on a fictional book store, named Crooks, that sells books at neigh unattainable prices.
 
+![eCommerce website title page](../../assets/eCommerceProject/TitlePage.png)
 
-
-Without further ado, here's the title page for all you nice people :
-
-![eCommerce website title page!!](../../assets/eCommerceProject/TitlePage.png)
-
-While the first few books there are of the Malazan series, there are over a 1000 book titles randomly generated through the faker ruby gem.
-A lot of the work here was primarily done through gem integrations, something that I greatly appreciate about ruby. It's very easy to
-find a gem for whatever idea you may have. The gem does the brunt of the work, while you mainly have to figure out how to integrate your work into them. They tend to offer enough flexability that really you can just use many as templates for whatever it is you want.   
-
-Something I want to point out that isn't true anymore, is the images that were added to some of the books. I used google cloud storage to store them on a now unfunded account. At the time, the admin gem I had used had integration with google cloud, leaving all the storage of images to the cloud.
+Intentionally, this website was created with ease of management in mind, hence the CMS aspect. An admin page is featured in which the store owner could add affect the databases that stored all book data, prices, and associated images. 
 
 ![Admin Page](../../assets/eCommerceProject/AdminPage.png)
 
-This admin page was also done with the use of a beautiful beautiful ruby gem. To set it up, all I needed was to add in my database info. 
-From there, I am able to add, edit, view, and delete or add CRUD features as you tech savvy people would call it. There is a admin login page implamented within this gem as well to ensure some level of security there.
- The image option in the admin pages directly linked to google cloud, which took me a very long time to figure out as my first array into integrating cloud storage with code.
+This admin page was done with the use of a ruby gem. To set it up, all I needed was to add in my database info. 
+From there, I am able to add, edit, view, and delete or add CRUD features. There is a admin login page implamented within this gem as well to ensure security.
+ The image option in the admin pages directly linked to google cloud, which as my first attempt at cloud storage within code, took a while to implament.
 
 Included within the pages of the project was a payment option in Stripe. Here customers are able to insert their 
-Credit Card information, along with form validation to ensure that the information is valid.
+credit card information, along with form validation to ensure that the information is valid.
+
+# What I learned
+During the process of creating a mock ecommerce website, I learned about the efficiencies of Ruby on Rails in the ecommerce space. The Ruby gems I used made implamenting the features I wanted very simple. An admin gem created the basis of an admin system, that I could modify to my hearts content. A google cloud gem and some research on the google cloud half of this taught me how to combine code and cloud storage. I was able to store local images into a free google cloud server. The database management of this project helped me understand just how vast a simple websites database can be. Requirements for this project involved having at least 5000 entries, which was made simple using the faker gem in Ruby. Last on the list was web hosting, in which I used Ubuntu to host it through Linux.
+
+
+🏶
 
 

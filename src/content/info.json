@@ -3,14 +3,6 @@
     "id": 1,
     "icon": {
       "type": "lucide",
-      "name": "cake"
-    },
-    "text": "24 years old"
-  },
-  {
-    "id": 2,
-    "icon": {
-      "type": "lucide",
       "name": "earth"
     },
     "type": "lucide",
