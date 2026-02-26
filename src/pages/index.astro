@@ -1,9 +1,11 @@
 ---
 import '../styles/index.css';
+import '../styles/article-list.css';
 
 import Sidebar from '../components/Sidebar.astro';
 import Card from '../components/Card.astro';
 import Layout from '../layouts/Layout.astro';
+import Tag from '../components/Tags.astro';
 import ImageGlow from '../components/ImageGlow.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
@@ -57,6 +59,9 @@ const { Content: About } = await render(about!);
 							<span class="post-date">{project.data.date.toLocaleDateString()}</span>
 						</div>
 						<span>{project.data.description}</span>
+						<ul class ="tags-list">					
+						    {project.data.tags.map((tag) => (<li class = "blog-tag">{tag}</li>))}
+						</ul>
 					</a>
 				))}
 			</div>
@@ -74,6 +79,7 @@ const { Content: About } = await render(about!);
 						<h3 class="work-experience-company">{entry.data.company}<h3/>
 						<!-- <p class="work-experience-desc">{entry.data.description}</p> -->
 						{entry.data.points.map((point) => (<li><p class ="work-experience-desc">{point}</p></li>))}
+						
 						
 					</div>
 				))}

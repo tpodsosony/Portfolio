@@ -17,7 +17,7 @@ const projects = await getCollection('projects');
 >
   <div class="layout-grid-left" slot="left">
       <Sidebar/>
-      
+
   </div>
   <div class="layout-grid-right" slot="right">
 		<Card>
@@ -33,6 +33,10 @@ const projects = await getCollection('projects');
 							<span class="post-date">{post.data.date.toLocaleDateString()}</span>
 						</div>
 						<span>{post.data.description}</span>
+
+						<ul class ="tags-list">					
+						    {post.data.tags.map((tag) => (<li class = "blog-tag">{tag}</li>))}
+						</ul>
 					</a>
 				))}
 			</div>
